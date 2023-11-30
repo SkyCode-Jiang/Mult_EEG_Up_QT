@@ -16,6 +16,7 @@
 //TCP数据
 #include <QTcpServer>
 #include <QTcpSocket>
+#include "IIR_JCL.h"
 
 
 QT_BEGIN_NAMESPACE

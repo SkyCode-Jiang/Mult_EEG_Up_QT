@@ -1601,6 +1601,7 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L, int L2)
                          if(EEG_IMP_Function==EEG_CONN)
                          {
                              eeg = ((b-8388608)*0.480772/12);
+
                          }
 
                        // qDebug()<<eeg;
@@ -1631,7 +1632,7 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L, int L2)
                                 eventsave =1;
                             }
 
-                           BDF_data(i_num,eeg);
+                           BDF_data(i_num,StartIIR_NOTCH50Hz(eeg));
                         }
 
                        // ch[chall_num].append(eeg);
@@ -1703,6 +1704,7 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L, int L2)
                         }
                         else {
                             if(EEG_IMP_Function==IMP_CONN)
+
                             {
                                 ui->stackedWidget->setCurrentIndex(1);
                                 double NOW_Implace = (eeg/2*16777216)/4.033/6/1000000;
@@ -1762,10 +1764,16 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L, int L2)
                             }
                             if(EEG_IMP_Function==EEG_CONN)
                             {
+                                double Pass_50 =StartIIR_NOTCH50Hz(eeg);
+//                                ui->show->yAxis->setRange(Min-(ui->y_set->currentText().toInt()*1000), ui->y_set->currentText().toInt()*1000+Max);//修改y的显示范围
+//                                mPlot->RectList[i_num]->axis(QCPAxis::atLeft)->setRange(MIN_Shou[i_num]-(ui->y_set->currentText().toInt()*1000), ui->y_set->currentText().toInt()*1000+ MAX_Shou[i_num]);
+//                                ui->show->graph(chall_num)->addData( time_x[now_channel], eeg);
+//                                Calibration_value(i_num,(ui->y_set->currentText().toInt()*1000+ Max)-(Min-(ui->y_set->currentText().toInt()*1000)));
                                 ui->show->yAxis->setRange(Min-(ui->y_set->currentText().toInt()*1000), ui->y_set->currentText().toInt()*1000+Max);//修改y的显示范围
                                 mPlot->RectList[i_num]->axis(QCPAxis::atLeft)->setRange(MIN_Shou[i_num]-(ui->y_set->currentText().toInt()*1000), ui->y_set->currentText().toInt()*1000+ MAX_Shou[i_num]);
-                                ui->show->graph(chall_num)->addData( time_x[now_channel], eeg);
+                                ui->show->graph(chall_num)->addData( time_x[now_channel], Pass_50);
                                 Calibration_value(i_num,(ui->y_set->currentText().toInt()*1000+ Max)-(Min-(ui->y_set->currentText().toInt()*1000)));
+
                             }
 
 

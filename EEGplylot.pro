@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    IIR_JCL.cpp \
     MyComboBox.cpp \
     edflib.c \
     eegstart.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
     wavemainwindow.cpp
 
 HEADERS += \
+    IIR_JCL.h \
     MyComboBox.h \
     edflib.h \
     eegstart.h \
@@ -38,6 +40,7 @@ HEADERS += \
     qttcustomplot.h \
     switchcontrol.h \
     wavemainwindow.h
+
 
 
 FORMS += \
