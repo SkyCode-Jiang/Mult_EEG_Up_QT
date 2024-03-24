@@ -1632,7 +1632,7 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L, int L2)
                                 eventsave =1;
                             }
 
-                           BDF_data(i_num,StartIIR_NOTCH50Hz(eeg));
+                           BDF_data(i_num,(eeg));
                         }
 
                        // ch[chall_num].append(eeg);
