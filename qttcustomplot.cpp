@@ -58,27 +58,18 @@ void QttCustomPlot::init_Rect()
 {
 
     for (int i = 0; i < rCount; ++i) {
-          //      QSharedPointer<QCPAxisTickerDateTime> dateTicker(new QCPAxisTickerDateTime);       //以智能指针方式定义dateTicker
-        //        dateTicker->setDateTimeFormat("hh:mm:ss");
-        //        dateTicker->setTickCount(10);
-        //        dateTicker->setTickStepStrategy(QCPAxisTicker::tssReadability);
-        //       Rect->axis(QCPAxis::atBottom)->setTicker(dateTicker);
-
 
         QCPAxisRect* Rect = new QCPAxisRect(this, true);
         QCPAxis *xAxis = Rect->axis(QCPAxis::atBottom);
         QCPAxis *yAxis = Rect->axis(QCPAxis::atLeft);
 
-        xAxis->setRange(0, 5);
-
-
+        xAxis->setRange(StartX, 5);
         Rect->setupFullAxesBox(true);    // 让四个轴关联，并全部显示出来
-
       //  Rect->setRangeDrag(Qt::Horizontal | Qt::Vertical); //水平方向拖动
 
       //  Rect->setRangeZoom(Qt::Horizontal | Qt::Vertical); //水平方向缩放
 
-        Rect->axis(QCPAxis::atLeft)->setLabel(QString::number(0));
+//        Rect->axis(QCPAxis::atLeft)->setLabel(QString::number(0));
 
 
         //横坐标属性设置
@@ -100,6 +91,15 @@ void QttCustomPlot::init_Rect()
         xAxis->setTickPen(QPen(TextColor, TextWidth));
 
         xAxis->setSubTickPen(QPen(TextColor, TextWidth));
+
+        xAxis->setVisible(true);
+//        xAxis->setTickLabels(false);
+//        xAxis->grid()->setSubGridVisible(false);
+//        xAxis->setTicks(false);
+        yAxis->setVisible(false);
+        yAxis->setTickLabels(false);
+        xAxis->grid()->setSubGridVisible(false);
+
 
         plotLayoutGrid->addElement(i, 0, Rect);
 
@@ -145,24 +145,24 @@ void QttCustomPlot::setLegendVisible(bool on)
 //!
 void QttCustomPlot::addRect(int idx)
 {
-    //    QSharedPointer<QCPAxisTickerDateTime> dateTicker(new QCPAxisTickerDateTime);       //以智能指针方式定义dateTicker
-    //    dateTicker->setDateTimeFormat("hh:mm:ss");
-    //    dateTicker->setTickCount(10);
-    //    dateTicker->setTickStepStrategy(QCPAxisTicker::tssReadability);
-    //   Rect->axis(QCPAxis::atBottom)->setTicker(dateTicker);
+//        QSharedPointer<QCPAxisTickerDateTime> dateTicker(new QCPAxisTickerDateTime);       //以智能指针方式定义dateTicker
+//        dateTicker->setDateTimeFormat("hh:mm:ss");
+//        dateTicker->setTickCount(10);
+//        dateTicker->setTickStepStrategy(QCPAxisTicker::tssReadability);
+//       Rect->axis(QCPAxis::atBottom)->setTicker(dateTicker);
 
     QCPAxisRect* Rect = new QCPAxisRect(this, true);
     QCPAxis *xAxis = Rect->axis(QCPAxis::atBottom);
     QCPAxis *yAxis = Rect->axis(QCPAxis::atLeft);
 
 
-    xAxis->setRange(0, 5);
+    xAxis->setRange(StartX, 5);
 
     Rect->setupFullAxesBox(true);    // 让四个轴关联，并全部显示出来
 
-    Rect->setRangeDrag(Qt::Horizontal | Qt::Vertical); //水平方向拖动
+//    Rect->setRangeDrag(Qt::Horizontal | Qt::Vertical); //水平方向拖动
 
-    Rect->setRangeZoom(Qt::Horizontal | Qt::Vertical); //水平方向缩放
+//    Rect->setRangeZoom(Qt::Horizontal | Qt::Vertical); //水平方向缩放
 
     Rect->axis(QCPAxis::atLeft)->setLabel(QString::number(idx));
 
@@ -187,13 +187,28 @@ void QttCustomPlot::addRect(int idx)
     xAxis->setSubTickPen(QPen(TextColor, TextWidth));
 
 
+    xAxis->setVisible(false);
+    xAxis->setTickLabels(false);
+    xAxis->grid()->setSubGridVisible(false);
+    xAxis->setTicks(false);
+    yAxis->setVisible(false);
+    yAxis->setTickLabels(false);
+    xAxis->grid()->setSubGridVisible(false);
+
+
 
     plotLayoutGrid->insertRow(idx);
     plotLayoutGrid->addElement(idx, 0, Rect);
     plotLayoutGrid->simplify();
 
     RectList.insert(idx,Rect);
-    hideAxises(AxisHide);
+    yAxis->setTicks(false);
+    hideAxises(1);
+
+//    Rect->axis(QCPAxis::atLeft)->setVisible(false);
+//    Rect->axis(QCPAxis::atBottom)->setVisible(false);
+//    Rect->axis(QCPAxis::atRight)->setVisible(false);
+//    Rect->axis(QCPAxis::atTop)->setVisible(false);
 
     rCount++;
 
@@ -243,15 +258,51 @@ void QttCustomPlot::hideAxises(bool on)
         if(i == 0)
         {
             Rect->axis(QCPAxis::atBottom)->setVisible(!on);
+            Rect->axis(QCPAxis::atRight)->setVisible(!on);
+            Rect->axis(QCPAxis::atTop)->setVisible(!on);
+
+
+//            Rect->axis(QCPAxis::atBottom)->setVisible(on);
+//             Rect->axis(QCPAxis::atBottom)->setTickLabels(on);
+//             QSharedPointer<QCPAxisTickerDateTime> dateTicker(new QCPAxisTickerDateTime);       //以智能指针方式定义dateTicker
+
+//             dateTicker->setDateTimeFormat("hh:mm:ss");
+//             dateTicker->setTickCount(10);
+//             dateTicker->setTickStepStrategy(QCPAxisTicker::tssReadability);
+//             Rect->axis(QCPAxis::atBottom)->setTicker(dateTicker);
+
         }
         else if(i == count -1)
         {
             Rect->axis(QCPAxis::atTop)->setVisible(!on);
+            Rect->axis(QCPAxis::atRight)->setVisible(!on);
+            Rect->axis(QCPAxis::atBottom)->setVisible(on);
+            Rect->axis(QCPAxis::atBottom)->setTicks(on);
+            Rect->axis(QCPAxis::atBottom)->setTickLabels(on);
+
+
+            QPen pen;
+            pen.setColor(QColor(153, 153, 153));//主刻度颜色
+            pen.setWidth(2);//线宽2
+            Rect->axis(QCPAxis::atBottom)->setTickPen(pen);
+             Rect->axis(QCPAxis::atBottom)->setTickLengthIn(1000);
+            //             QSharedPointer<QCPAxisTickerDateTime> dateTicker(new QCPAxisTickerDateTime);       //以智能指针方式定义dateTicker
+
+//                         dateTicker->setDateTimeFormat("hh:mm:ss");
+//                         dateTicker->setTickCount(10);
+//                         dateTicker->setTickStepStrategy(QCPAxisTicker::tssReadability);
+//                         Rect->axis(QCPAxis::atBottom)->setTicker(dateTicker);
+
+
         }
         else
         {
             Rect->axis(QCPAxis::atTop)->setVisible(!on);
             Rect->axis(QCPAxis::atBottom)->setVisible(!on);
+            Rect->axis(QCPAxis::atRight)->setVisible(!on);
+
+
+
         }
     }
 
@@ -636,5 +687,13 @@ void QttCustomPlot::setGraphColor(QCPGraph* pGraph,int Chall_num)
         break;
     }
 }
+
+
+
+void QttCustomPlot::wheelEvent(QWheelEvent *e)
+{
+}
+
+
 
 

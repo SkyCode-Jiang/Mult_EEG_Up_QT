@@ -8,13 +8,14 @@
 #define AppFontSize 9
 #define TextColor QColor(255,255,255)
 #define TextWidth 1
-
+#define StartX (-0.1)
 class QttCustomPlot : public QCustomPlot
 {
     Q_OBJECT
 
 
 public:
+    void wheelEvent(QWheelEvent *e);
     explicit QttCustomPlot(int count);
     //! legend
     void setLegendVisible(bool on);

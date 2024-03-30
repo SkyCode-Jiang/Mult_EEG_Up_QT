@@ -46,6 +46,8 @@ QT_END_NAMESPACE
 #define ColStep80_100 "rgb(255,20,147)"
 #define ColStepmore100 "rgb(220,20,6)"
 
+//#define ONLINENUM 8
+
 
 class MainWindow : public QMainWindow
 {
@@ -318,6 +320,21 @@ public:
     int Now_Function =0;
     int  show_vale[MAX_Slave];//Y轴定标用
     int save_size=2072;
+
+
+    void lable_order(QCustomPlot *my_customplot,QCPAxis *yAxis, QString label, QCPAxisRect *rect);
+    QCPItemText* yAxisLabel[16];
+    void Filterinint();
+    int FilterType;
+    int WinType;
+    int Scala;
+    double Freq;
+    double LowerFreq;
+    double UpperFreq;
+
+
+
+
 
 };
 #endif // MAINWINDOW_H

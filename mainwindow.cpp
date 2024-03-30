@@ -209,6 +209,38 @@ MainWindow::MainWindow(QWidget *parent)
 
 }
 
+bool ok;
+int hadlaber = 0;
+//设置名字
+void MainWindow::lable_order(QCustomPlot *my_customplot,QCPAxis *yAxis, QString label, QCPAxisRect *rect)
+{
+    if (hadlaber <=chall)
+    {
+    static int  label_num = 0;
+    yAxisLabel[label_num] = new QCPItemText(my_customplot);
+    yAxisLabel[label_num]->position->setParentAnchor(NULL);
+    yAxisLabel[label_num]->setText(label);
+    yAxisLabel[label_num]->setRotation(0);
+    yAxisLabel[label_num]->position->setAxisRect(rect);
+    yAxisLabel[label_num]->setClipToAxisRect(false);
+    //x is absolut position
+    yAxisLabel[label_num]->position->setTypeX(QCPItemPosition::ptAbsolute);
+    //y is relativ to AxesRect
+    yAxisLabel[label_num]->position->setTypeY(QCPItemPosition::ptAxisRectRatio);
+    yAxisLabel[label_num]->position->setAxes(0, yAxis);
+    yAxisLabel[label_num]->position->setCoords(20,0.5);
+    label_num++;
+    if(label_num==channel.toInt(&ok,10))
+    {
+        label_num=0;
+    }
+      hadlaber++;
+    }
+
+
+}
+
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -928,7 +960,7 @@ void MainWindow::on_initialization_clicked()
     if(Now_Function==Single_Show)
     {
         Now_Function=Mult_Show;
-        ui->stackedWidget->setCurrentIndex(1);
+        ui->stackedWidget->setCurrentIndex(2);
        // connect(thread1, SIGNAL(started()), mPlot, SLOT(replot()));
       //  disconnect(thread2, SIGNAL(started()),  ui->show, SLOT(replot()));
     }
@@ -936,7 +968,7 @@ void MainWindow::on_initialization_clicked()
     else
     {
         Now_Function=Single_Show;
-        ui->stackedWidget->setCurrentIndex(0);
+        ui->stackedWidget->setCurrentIndex(1);
       //  disconnect(thread1, SIGNAL(started()), mPlot, SLOT(replot()));
       //  connect(thread2, SIGNAL(started()),  ui->show, SLOT(replot()));
 
@@ -975,7 +1007,7 @@ void MainWindow::on_x_down_clicked()
 
     for(int i=0;i<chall;i++)
     {
-        mPlot->RectList[i]->axis(QCPAxis::atBottom)->setRange(0, x_range);
+        mPlot->RectList[i]->axis(QCPAxis::atBottom)->setRange(-0.05, x_range);
     }
 
 
@@ -997,7 +1029,7 @@ void MainWindow::on_x_up_clicked()
 
     for(int i=0;i<chall;i++)
     {
-        mPlot->RectList[i]->axis(QCPAxis::atBottom)->setRange(0, x_range);
+        mPlot->RectList[i]->axis(QCPAxis::atBottom)->setRange(-0.2, x_range);
     }
 
 
@@ -1418,7 +1450,7 @@ void MainWindow::data_sample()
 
 }
 
-bool ok;
+
 //标签判断
 //now_label_txt[0] 代表内容 now_label_txt[1] 代表位置
 int MainWindow::LabAnary(QString str)
@@ -1527,6 +1559,7 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L, int L2)
         {
             ui->show->graph(legset)->setName(rec.mid(legset*(shujuliangint*3+4)*2+2,2));//设置名称
             mPlot->setLegen(legset,0,rec.mid(legset*(shujuliangint*3+4)*2+2,2));
+            lable_order(mPlot,mPlot->RectList[legset]->axis(QCPAxis::atRight),rec.mid(legset*(shujuliangint*3+4)*2+2,2)+"\r\n从机",mPlot->RectList[legset]);
             if(bdf_lab_flag==false)
             {
                 bdf_lab.append(rec.mid(legset*(shujuliangint*3+4)*2+2,2));
@@ -2470,7 +2503,7 @@ void MainWindow::onReadData()
  {
    //  qDebug()<<Onlie_UseDada;
      Online_SendData.clear();
-        for(int i = 0;i < 8;i++)
+        for(int i = 0;i < chall;i++)
         {
             //Onlie_UseDada.mid((8+L)*i+2,L+6)是通道ID+数据+包ID+包尾
             //(8+L)*i+4,L 为纯数据
@@ -2479,7 +2512,7 @@ void MainWindow::onReadData()
             Online_SendData.append(Onlie_UseDada.mid((8+L)*i+4,L));
         }
         for (int j = 0;j < shujuliangint; j ++) {
-            for(int k = 0;k < 8; k++)
+            for(int k = 0;k < chall; k++)
             {
                 // qDebug()<<eeg;
                 QString str = Online_SendData[k].mid(j*6,6);
@@ -2504,14 +2537,14 @@ void MainWindow::onReadData()
   void MainWindow:: Onlie_SendData_add(QString EEG_data,int EEG_Event)
   {
       Now_TCP_Data++;
-      if(Now_TCP_Data < 9)      {
+      if(Now_TCP_Data < chall+1)      {
         // Onlie_SendTCPData+=QString::number(EEG_data,'f',3)+',';
            Onlie_SendTCPData+=EEG_data+',';
       }
 
 
       //八通道数据+标签一共9次
-      if(Now_TCP_Data == 9)
+      if(Now_TCP_Data == chall+1)
       {
           Now_TCP_Data=0;
           if(Onlie_SendEvent !=  now_label_txt[0] )
@@ -2541,6 +2574,7 @@ void MainWindow::onReadData()
 //            // qDebug()<<Online_Num;
 //             Onlie_Send(Onlie_SendTCPData);
 //          }
+          qDebug()<<Onlie_SendTCPData;
           Onlie_Send(Onlie_SendTCPData);
 
           Onlie_SendTCPData.clear();
@@ -2549,14 +2583,14 @@ void MainWindow::onReadData()
   }
 
   //3.TCP数据发送
-  void MainWindow:: Onlie_Send(QString Now_Data)
-  {
-      if(tcpSocket->isWritable())
-      {
-         tcpSocket->write(Now_Data.toUtf8());
+void MainWindow:: Onlie_Send(QString Now_Data)
+{
+    if(tcpSocket->isWritable())
+    {
+        tcpSocket->write(Now_Data.toUtf8());
         // qDebug()<<"发送成功";
-      }
-  }
+    }
+}
 
 void MainWindow::on_pushButton_4_clicked()
 {
