@@ -113,3 +113,4 @@ void waveMainWindow::on_notchEdit_textChanged(const QString &arg1)
     }
 
 }
+

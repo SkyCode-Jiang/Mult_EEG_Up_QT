@@ -31,6 +31,7 @@ public slots:
     void slots_filtering(); //声明按钮组槽函数
 
 public:
+    //filtering_flag 1 ：低通  2高通  3陷波
     int filtering_flag = 0;
     int low_f = 0;
     int high_f = 0;
@@ -41,6 +42,7 @@ private slots:
     void on_lowEdit_textChanged(const QString &arg1);
     void on_highEdit_textChanged(const QString &arg1);
     void on_notchEdit_textChanged(const QString &arg1);
+    void on_updata_clicked();
 };
 
 #endif // WAVEMAINWINDOW_H

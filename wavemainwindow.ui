@@ -58,7 +58,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Low Pass Filtering:</string>
+          <string>低通截至频率</string>
          </property>
          <property name="autoDefault">
           <bool>true</bool>
@@ -142,7 +142,7 @@
           </font>
          </property>
          <property name="text">
-          <string>High Pass Filtering:</string>
+          <string>高通截至频率</string>
          </property>
          <property name="autoDefault">
           <bool>true</bool>
@@ -226,7 +226,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Notch filtering:</string>
+          <string>50Hz陷波</string>
          </property>
          <property name="autoDefault">
           <bool>true</bool>
@@ -247,33 +247,8 @@
            <height>16777215</height>
           </size>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_6">
-         <property name="maximumSize">
-          <size>
-           <width>30</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>Times New Roman</family>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
          <property name="text">
-          <string>HZ</string>
-         </property>
-         <property name="autoDefault">
-          <bool>true</bool>
-         </property>
-         <property name="default">
-          <bool>true</bool>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
+          <string>50</string>
          </property>
         </widget>
        </item>
@@ -356,7 +331,7 @@
      <x>0</x>
      <y>0</y>
      <width>422</width>
-     <height>26</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>

@@ -52,6 +52,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     showMaximized();//全屏显示
+
+
+    firter = new Filter (0,0,5,1000,30,40);
     //ui->show->setSelectionRectMode(QCP::SelectionRectMode::srmZoom);//模式：框选放大
     //视图一画笔
 //    colour.append(QPen(Qt::magenta));//ch1
@@ -79,7 +82,7 @@ MainWindow::MainWindow(QWidget *parent)
     colour.append(QPen(QColor(255,255,255))); //ch2
     colour.append(QPen(QColor(255,255,0))); //ch3
 
-    colour.append(QPen(QColor(0,64,0))); //ch2
+    colour.append(QPen(QColor(128,0,255))); //ch2
     colour.append(QPen(QColor(255,128,0))); //ch3
     colour.append(QPen(QColor(128,128,0))); //ch4
     colour.append(QPen(QColor(128,255,255))); //ch2
@@ -92,7 +95,7 @@ MainWindow::MainWindow(QWidget *parent)
     colour.append(QPen(QColor(192,192,192))); //ch3
 
     colour.append(QPen(QColor(255,128,192))); //ch2
-    colour.append(QPen(QColor(128,0,64))); //ch3
+    colour.append(QPen(QColor(0,64,0))); //ch3
     colour.append(QPen(QColor(255,0,255))); //ch4
     colour.append(QPen(QColor(128,0,255))); //ch2
     colour.append(QPen(QColor(79,79,79))); //ch3
@@ -174,6 +177,7 @@ MainWindow::MainWindow(QWidget *parent)
     //    ui->y_set->addItem("0.01");
     //    ui->y_set->addItem("0.05");
     //    ui->y_set->addItem("0.1");
+    ui->y_set->addItem("0.0001");
     ui->y_set->addItem("0.1");
     ui->y_set->addItem("1");
     ui->y_set->addItem("2");
@@ -203,6 +207,10 @@ MainWindow::MainWindow(QWidget *parent)
     Imp10k->setIcon("init");
     Imp10k->setBodyText("阻抗已经小于10K");
     Imp10k->setButtonText("确定");
+
+
+
+//     set_filter(20,0,0,0,500);
     //Show_Mes->exec();
    // Show_Mes->show();
 
@@ -1396,6 +1404,7 @@ void MainWindow::recovery_muli()
 {
     qDebug()<<ch[0];
     qDebug()<<ch[0].length();
+    fir_flag = false;
 }
 
 //test----输入数据量正式版本需要删除:
@@ -1408,47 +1417,7 @@ void MainWindow::on_lineEdit_2_textChanged(const QString &arg1)
 
 
 //new-------多通道新格式:
-//1).多通道数据格式设置:
-void MainWindow::data_sample()
-{
-    qDebug()<<shujuliangint;
-    L = shujuliangint*3*2;//多通道所有数据量
-    all2 = (L*chall + chall*8 + 12)/2;//8为数据的报头和报尾, 12为AA~BB
-    L2 = L + 12;
-    all3 = (shujuliangint * 3 * 2)+4;
-    fir_num = shujuliangint*2 + 1;
 
-    //滤波参数设置
-    if(fir_flag == false)
-    {
-        for(auto i = 0; i<fir_num; ++i)
-        {
-            fir_wind.append(1);
-        }
-    }
-    else
-    {
-        fir_cez* fir = new fir_cez;
-        if(this->wavepage->filtering_flag == 1) //low
-        {
-            fir->design(this->wavepage->low_f,fir_num,this->wavepage->filtering_flag);
-        }
-
-        if(this->wavepage->filtering_flag == 2) //high
-        {
-             fir->design(this->wavepage->high_f,fir_num,this->wavepage->filtering_flag);
-        }
-
-        if(this->wavepage->filtering_flag == 3) //notch
-        {
-            //fir->design(this->wavepage->notch_f,fir_num,this->wavepage->filtering_flag);
-            fir_xianbo(1000,this->wavepage->notch_f);
-        }
-
-        fir_wind = fir->coefs;
-    }
-
-}
 
 
 //标签判断
@@ -1589,9 +1558,11 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L, int L2)
 
                 cha_data = rec.mid(4,L);
                 //qDebug()<<cha_data;
+
+
                 //不使用fir滤波:
-                if(fir_flag == false)
-                {
+//                if(fir_flag == false)
+//                {
 //                    qDebug()<<"cha_data.length()/6"<<cha_data.length()/6;
                     for(int i = 0; i<(cha_data.length()/6); ++i)
                     {
@@ -1634,6 +1605,11 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L, int L2)
                          if(EEG_IMP_Function==EEG_CONN)
                          {
                              eeg = ((b-8388608)*0.480772/12);
+                             if(fir_flag == true)
+                             {
+                                  fir_all[chall_num].append(eeg);
+
+                             }
 
                          }
 
@@ -1725,10 +1701,111 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L, int L2)
                             }
                             if(EEG_IMP_Function==EEG_CONN)
                             {
-                                ui->show->yAxis->setRange(Min-(ui->y_set->currentText().toInt()*1000), ui->y_set->currentText().toInt()*1000+Max);//修改y的显示范围
-                                mPlot->RectList[i_num]->axis(QCPAxis::atLeft)->setRange(MIN_Shou[i_num]-(ui->y_set->currentText().toInt()*1000), ui->y_set->currentText().toInt()*1000+ MAX_Shou[i_num]);
-                                mPlot->addData(i_num,0,time_x[now_channel],eeg);
-                                Calibration_value(i_num,(ui->y_set->currentText().toInt()*1000+ Max)-(Min-(ui->y_set->currentText().toInt()*1000)));
+
+//                                if(fir_flag == true)
+//                                {
+//                                    while(fir_all[chall_num].length()>fir_num)
+//                                    {
+//                                        double eeg2 = 0;
+////                                        time_x[now_channel] = time_x[now_channel] + 0.001;
+//                                        for(auto i = 0; i<fir_num; ++i)
+//                                        {
+//                                            eeg2 = eeg2 + fir_all[chall_num][i]*fir_wind[i];
+//                                        }
+//                                        ch[chall_num].append(eeg2);
+//                                        eeg2 = variable_y * (eeg2) + V_constant.at(chall_num); //eeg处理
+//                                        qDebug()<<eeg2;
+////                                        ui->show->graph(chall_num)->addData(timerx, eeg2);
+//                                        if (eeg2>MAX_Shou[i_num])
+//                                        {
+//                                            MAX_Shou[i_num]=eeg2;
+//                                        }
+//                                        if (eeg2<MIN_Shou[i_num])
+//                                        {
+//                                            MIN_Shou[i_num]=eeg2;
+//                                        }
+//                                        mPlot->RectList[i_num]->axis(QCPAxis::atLeft)->setRange(MIN_Shou[i_num]-(ui->y_set->currentText().toInt()*1000), ui->y_set->currentText().toInt()*1000+ MAX_Shou[i_num]);//修改y的显示范围
+
+//                                        mPlot->addData(i_num,0,time_x[now_channel],eeg2);
+//                                        fir_all[chall_num].remove(0,1);
+//                                    }
+//                                }
+
+
+
+
+
+//                                if(fir_flag == true)
+//                                {
+//                                    while(fir_all[chall_num].length()>=5)
+//                                    {
+//                                        qDebug()<<fir_all[chall_num].length();
+//                                        double eeg2 = 0;
+//                                        double datain[5];
+//                                        for (int i = 0;i<5;i++) {
+//                                            datain[i]= fir_all[chall_num][i];
+//                                        }
+//                                       firter->Convolution(datain,5);
+////                                        time_x[now_channel] = time_x[now_channel] + 0.001;
+////                                        for(auto i = 0; i<fir_num; ++i)
+////                                        {
+////                                            eeg2 = eeg2 + fir_all[chall_num][i]*fir_wind[i];
+////                                        }
+//                                        eeg2 = firter->OutData[4];
+//                                        ch[chall_num].append(eeg2);
+////                                        eeg2 = variable_y * (eeg2) + V_constant.at(chall_num); //eeg处理
+//                                        qDebug()<<eeg2;
+////                                        ui->show->graph(chall_num)->addData(timerx, eeg2);
+//                                        if (eeg2>MAX_Shou[i_num])
+//                                        {
+//                                            MAX_Shou[i_num]=eeg2;
+//                                        }
+//                                        if (eeg2<MIN_Shou[i_num])
+//                                        {
+//                                            MIN_Shou[i_num]=eeg2;
+//                                        }
+//                                        mPlot->RectList[i_num]->axis(QCPAxis::atLeft)->setRange(MIN_Shou[i_num]-(ui->y_set->currentText().toInt()*1000), ui->y_set->currentText().toInt()*1000+ MAX_Shou[i_num]);//修改y的显示范围
+//                                        mPlot->addData(i_num,0,time_x[now_channel],eeg2);
+//                                        fir_all[chall_num].remove(0,1);
+
+//                                    }
+//                                }
+
+
+
+
+
+
+                                if(fir_flag == true)
+                                {
+
+                                        double eeg2 = 0;
+                                        eeg2= fir[chall_num+chall]->filter(eeg);
+                                        qDebug()<<eeg2;
+                                        if (eeg2>MAX_Shou[i_num])
+                                        {
+                                            MAX_Shou[i_num]=eeg2;
+                                        }
+                                        if (eeg2<MIN_Shou[i_num])
+                                        {
+                                            MIN_Shou[i_num]=eeg2;
+                                        }
+                                      mPlot->RectList[i_num]->axis(QCPAxis::atLeft)->setRange(MIN_Shou[i_num]-(ui->y_set->currentText().toInt()*1000), ui->y_set->currentText().toInt()*1000+ MAX_Shou[i_num]);//修改y的显示范围
+                                        mPlot->addData(i_num,0,time_x[now_channel],eeg2);
+
+                                }
+
+
+                                else
+                                {
+                                    ui->show->yAxis->setRange(Min-(ui->y_set->currentText().toInt()*1000), ui->y_set->currentText().toInt()*1000+Max);//修改y的显示范围
+                                    mPlot->RectList[i_num]->axis(QCPAxis::atLeft)->setRange(MIN_Shou[i_num]-(ui->y_set->currentText().toInt()*1000), ui->y_set->currentText().toInt()*1000+ MAX_Shou[i_num]);
+                                    mPlot->addData(i_num,0,time_x[now_channel],eeg);
+                                    Calibration_value(i_num,(ui->y_set->currentText().toInt()*1000+ Max)-(Min-(ui->y_set->currentText().toInt()*1000)));
+                                }
+
+
+
                             }
 
 
@@ -1813,91 +1890,9 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L, int L2)
                       }
 
                     }
-                }
-                //使用fir滤波:
-                else
-                {
-                    for(int i = 0; i<(cha_data.length()/6); ++i)
-                    {
-                        int k = i*6;
-                        QString str = cha_data.mid(k,6);
-                        int ix = str.toInt(&OK,16); //转16进制整形
-                        double b = ix; //转double
-                        double eeg = ((b-8388608)*0.480772/12);
-                        fir_all[chall_num].append(eeg);
-                    }
-                    if(this->wavepage->filtering_flag == 1 || this->wavepage->filtering_flag == 2)
-                    {
-                        //fir 数据头
-                        if(fir_start == false)
-                        {
-        //                    if(fir_all[chall_num].length()==(fir_num-1)/2)
-        //                     {
-        //                        for(auto i = 0; i<(fir_num-1)/2; ++i)
-        //                        {
-        //                            timerx = timerx + 1;
-        //                            double eeg2 = fir_all[chall_num][i];
-        //                            ch[chall_num].append(eeg2);
-        //                            eeg2 = variable_y * (eeg2) + V_constant.at(chall_num);
-        //                            ui->show->graph(chall_num)->addData(timerx, eeg2);
-        //                        }
-        //                     }
-                        }
 
-                        //fir卷积
-                        else
-                        {
-                            while(fir_all[chall_num].length()>fir_num)
-                            {
-                                double eeg2 = 0;
-                                timerx = timerx + 1;
-                                for(auto i = 0; i<fir_num; ++i)
-                                {
-                                    eeg2 = eeg2 + fir_all[chall_num][i]*fir_wind[i];
-                                }
-                                ch[chall_num].append(eeg2);
-                                eeg2 = variable_y * (eeg2) + V_constant.at(chall_num); //eeg处理
-                                ui->show->graph(chall_num)->addData(timerx, eeg2);
-                                fir_all[chall_num].remove(0,1);
-                            }
-                             //fir数据尾
-        //                    if(fir_all[chall_num].length()<=(fir_num-1)/2)
-        //                     {
 
-        //                        for(auto i = 0; i<fir_all[chall_num].length(); ++i)
-        //                        {
-        //                            timerx = timerx + 1;
-        //                            double eeg2 = fir_all[chall_num][i];
-        //                            ch[chall_num].append(eeg2);
-        //                            eeg2 = variable_y * (eeg2) + V_constant.at(chall_num);
-        //                            ui->show->graph(chall_num)->addData(timerx, eeg2);
-        //                        }
-
-        //                     }
-
-                        }
-                    }
-                    if(this->wavepage->filtering_flag == 3)
-                    {
-                        while(fir_all[chall_num].length() > 3)
-                        {
-                            double eeg2 = 0;
-                            timerx = timerx + 1;
-                            for(auto i = 0; i<3; ++i)
-                            {
-                                eeg2 = eeg2 + fir_all[chall_num][i]*xian[i];
-                            }
-                            eeg2  = eeg2/3;
-                            ch[chall_num].append(eeg2);
-                            eeg2 = variable_y * (eeg2) + V_constant.at(chall_num); //eeg处理
-                            ui->show->graph(chall_num)->addData(timerx, eeg2);
-                            fir_all[chall_num].remove(0,1);
-                        }
-                    }
-
-                }
-
-                 rec.remove(0,(L+8));
+                rec.remove(0,(L+8));
                  //qDebug()<<now_channel;
                  chall_num = chall_num + 1;
                  if(chall_num == chall)
@@ -2641,4 +2636,104 @@ void MainWindow::on_pushButton_7_clicked()
     framedata_al.clear();
     QVector<QString> ().swap(framedata_al);
     EEG_IMP_Function = EEG_CONN;
+
+
+}
+
+
+//1).多通道数据格式设置:
+void MainWindow::data_sample()
+{
+    qDebug()<<shujuliangint;
+    L = shujuliangint*3*2;//多通道所有数据量
+    all2 = (L*chall + chall*8 + 12)/2;//8为数据的报头和报尾, 12为AA~BB
+    L2 = L + 12;
+    all3 = (shujuliangint * 3 * 2)+4;
+    fir_num = shujuliangint*2 + 1;
+
+    //滤波参数设置
+    if(fir_flag == false)
+    {
+//        for(auto i = 0; i<fir_num; ++i)
+//        {
+//            fir_wind.append(1);
+//        }
+    }
+    else
+    {
+//        fir_cez* fir = new fir_cez;
+        if(this->wavepage->filtering_flag == 1) //low
+        {
+//            fir->design(this->wavepage->low_f,fir_num,this->wavepage->filtering_flag);
+            set_filter(this->wavepage->low_f,0,0,0,FIR_ORDER,this->wavepage->filtering_flag);
+        }
+
+        if(this->wavepage->filtering_flag == 2) //high
+        {
+//             fir->design(this->wavepage->high_f,fir_num,this->wavepage->filtering_flag);
+             set_filter(0,this->wavepage->high_f,0,0,FIR_ORDER,this->wavepage->filtering_flag);
+        }
+
+        if(this->wavepage->filtering_flag == 3) //notch
+        {
+            //fir->design(this->wavepage->notch_f,fir_num,this->wavepage->filtering_flag);
+            //            fir_xianbo(1000,this->wavepage->notch_f);
+            set_filter(0,0,45,55,FIR_ORDER,this->wavepage->filtering_flag);
+        }
+
+//        fir_wind = fir->coefs;
+    }
+
+}
+
+
+
+
+void MainWindow::set_filter(double low_freq, double high_freq, double notch_lowfreq, double notch_highfreq, int fir_order,int fir_type)
+{//阶数、低通截止频率、高通截止频率、类型、窗函数、
+
+    if(fir_type == 1)
+    {
+        double low_freq_1=low_freq/SAMPLE;
+        for(int i=0;i<19;i++)
+        {
+            fir[i] = new FIR_filter(fir_order,low_freq_1,0,"lp","hamming");
+        }
+        qDebug()<<"低通滤波器设计完成"<<"阶数"<<fir_order<<"低通截止频率"<<low_freq_1;
+    }
+    if(fir_type == 2)
+        //高通滤波器
+    {
+        double high_freq_1=high_freq/SAMPLE;
+        for(int i=0;i<19;i++)
+        {
+            fir[i] = new FIR_filter(fir_order,high_freq_1,0,"hp","hamming");
+        }
+        qDebug()<<"高通滤波器设计完成";
+    }
+
+    if(fir_type == 3)
+    {
+        //陷波滤波器
+        double notch_lowfreq_3=notch_lowfreq/SAMPLE;
+        double notch_highfreq_3=notch_highfreq/SAMPLE;
+        for(int i=0;i<19;i++)
+        {
+            notch_fir[i] = new FIR_filter(fir_order,notch_lowfreq_3,notch_highfreq_3,"sb","hamming");
+        }
+        qDebug()<<"陷波滤波器设计完成";
+    }
+    if(fir_type == 4)
+    {
+        //带通滤波器
+        double low_freq_2=low_freq/SAMPLE;
+        double high_freq_2=high_freq/SAMPLE;
+        for(int i=0;i<19;i++)
+        {
+            fir[i] = new FIR_filter(fir_order,low_freq_2,high_freq_2,"bp","hamming");
+        }
+        qDebug()<<"带通滤波器设计完成";
+
+
+    }
 }

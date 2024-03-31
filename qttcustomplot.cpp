@@ -641,7 +641,8 @@ void QttCustomPlot::setGraphColor(QCPGraph* pGraph,int Chall_num)
         pGraph->setPen(QPen(QColor(255,255,0)));
         break;
     case 6:
-        pGraph->setPen(QPen(QColor(0,64,0)));
+
+        pGraph->setPen(QPen(QColor(128,0,255)));
         break;
     case 7:
         pGraph->setPen(QPen(QColor(255,128,0)));
@@ -680,7 +681,7 @@ void QttCustomPlot::setGraphColor(QCPGraph* pGraph,int Chall_num)
         pGraph->setPen(QPen(QColor(255,0,255)));
         break;
     case 19:
-        pGraph->setPen(QPen(QColor(128,0,255)));
+        pGraph->setPen(QPen(QColor(0,64,0)));
         break;
     case 20:
         pGraph->setPen(QPen(QColor(79,79,79)));

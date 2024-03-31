@@ -20,6 +20,8 @@ SOURCES += \
     MyComboBox.cpp \
     edflib.c \
     eegstart.cpp \
+    filter.cpp \
+    fir_filter.cpp \
     main.cpp \
     mainwindow.cpp \
     mymessagebox.cpp \
@@ -33,7 +35,9 @@ HEADERS += \
     MyComboBox.h \
     edflib.h \
     eegstart.h \
+    filter.h \
     fir_cez.h \
+    fir_filter.h \
     mainwindow.h \
     mymessagebox.h \
     qcustomplot.h \

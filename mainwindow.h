@@ -18,6 +18,9 @@
 #include <QTcpSocket>
 #include "IIR_JCL.h"
 
+#include "filter.h"
+#include <fir_filter.h>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -32,6 +35,8 @@ QT_END_NAMESPACE
 #define TextWidth 1
 #define Single_Show 0
 #define Mult_Show 1
+#define  SAMPLE 1000
+#define FIR_ORDER 500
 //bdf文件存储
 #define SMP_FREQ  (1000)
 
@@ -331,6 +336,14 @@ public:
     double Freq;
     double LowerFreq;
     double UpperFreq;
+
+    Filter *firter;
+
+
+
+    void set_filter(double low_freq,double high_freq,double notch_lowfreq,double notch_highfreq,int fir_order,int fir_type);
+    FIR_filter *fir[19];
+    FIR_filter *notch_fir[19];
 
 
 
