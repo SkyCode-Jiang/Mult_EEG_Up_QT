@@ -1,0 +1,1401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EEGStart</class>
+ <widget class="QWidget" name="EEGStart">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>907</width>
+    <height>505</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>907</width>
+    <height>505</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>907</width>
+    <height>505</height>
+   </size>
+  </property>
+  <property name="sizeIncrement">
+   <size>
+    <width>907</width>
+    <height>505</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>EEG配置</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QListWidget" name="listWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>30</y>
+     <width>421</width>
+     <height>421</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 6px;
+image: url(:/icons/RES.png);
+background-image: url(:/icons/RES.png);
+border-radius:10px;</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="widget_2" native="true">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>70</y>
+     <width>401</width>
+     <height>341</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>30</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>109</width>
+      <height>40</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>200</width>
+      <height>200</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(3,22,64);
+color: rgb(255, 255, 255);
+border-style: none;
+border: 1px solid #DCDFE6;
+border-radius: 6px;
+padding: 5px 10px;
+font-size: 25px;
+</string>
+    </property>
+    <property name="text">
+     <string>从机数目</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_3">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>40</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);
+border-radius: 0px;</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>下拉选择</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>2从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>3从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>4从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>5从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>6从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>7从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>8从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>9从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>10从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>11从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>12从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>13从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>14从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>15从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>16从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>17从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>18从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>19从机</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>20从机</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>110</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>109</width>
+      <height>40</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>200</width>
+      <height>200</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(3,22,64);
+color: rgb(255, 255, 255);
+border-style: none;
+border: 1px solid #DCDFE6;
+border-radius: 6px;
+padding: 5px 10px;
+font-size: 25px;
+</string>
+    </property>
+    <property name="text">
+     <string>连接间隔</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_2">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>120</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);
+border-radius: 0px;</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>请选择从机数目</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>25</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>25</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>30</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>35</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>40</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>45</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>50</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>55</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>60</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>65</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>70</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>75</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>80</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>85</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>90</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>95</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>100</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>105</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>110</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>115</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>190</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>109</width>
+      <height>40</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>200</width>
+      <height>200</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(3,22,64);
+color: rgb(255, 255, 255);
+border-style: none;
+border: 1px solid #DCDFE6;
+border-radius: 6px;
+padding: 5px 10px;
+font-size: 25px;
+</string>
+    </property>
+    <property name="text">
+     <string>串口号</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>200</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);
+border-radius: 0px;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>270</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>150</width>
+      <height>40</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>200</width>
+      <height>60</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(3,22,64);
+color: rgb(255, 255, 255);
+border-style: none;
+border: 1px solid #DCDFE6;
+border-radius: 6px;
+padding: 5px 10px;
+font-size: 25px;
+</string>
+    </property>
+    <property name="text">
+     <string>波特率</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_4">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>280</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);
+border-radius: 0px;</string>
+    </property>
+    <property name="currentText">
+     <string>下拉选择</string>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <item>
+     <property name="text">
+      <string>下拉选择</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>3000000</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>1200</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>2400</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>4800</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>9600</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>19200</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>38400</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>36400</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>57600</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>115200</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QListView" name="listView">
+   <property name="geometry">
+    <rect>
+     <x>-120</x>
+     <y>-40</y>
+     <width>1031</width>
+     <height>551</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(3,22,64);
+color: rgb(255, 255, 255);
+</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>410</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton { color:#ffffff;background-color:#0B325D;border-style: none;border: 1px solid #DCDFE6;border-radius: 6px;padding: 5px 10px;font-size: 25px; }
+/* QPushButton:hover{ color: #ffffff; font-weight: bold; background-color: #fd839a; }*/
+
+QPushButton:hover {  color:#000000;background-color: #f8f8f8; border: 1px solid #f0f0f0; }
+
+</string>
+   </property>
+   <property name="text">
+    <string>确定</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="formLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>30</y>
+     <width>191</width>
+     <height>456</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_1">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    1号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="SwitchControl" name="pushButton_1">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    2号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="SwitchControl" name="pushButton_2">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    3号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="SwitchControl" name="pushButton_3">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    4号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="SwitchControl" name="pushButton_4">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    5号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="SwitchControl" name="pushButton_5">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_6">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    6号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="SwitchControl" name="pushButton_6">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_7">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    7号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="SwitchControl" name="pushButton_7">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="label_8">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    8号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="SwitchControl" name="pushButton_8">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="0">
+     <widget class="QLabel" name="label_21">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    9号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="0">
+     <widget class="QLabel" name="label_22">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>   10号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="1">
+     <widget class="SwitchControl" name="pushButton_9">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="1">
+     <widget class="SwitchControl" name="pushButton_10">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="formLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>30</y>
+     <width>266</width>
+     <height>918</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout_2">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_9">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    11号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="SwitchControl" name="pushButton_11">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_14">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    12号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="SwitchControl" name="pushButton_12">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_15">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    13号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="SwitchControl" name="pushButton_13">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_16">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    14号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="SwitchControl" name="pushButton_14">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_17">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    15号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="SwitchControl" name="pushButton_15">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_18">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    16号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="SwitchControl" name="pushButton_16">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_19">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    17号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="SwitchControl" name="pushButton_17">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="label_20">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    18号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="SwitchControl" name="pushButton_18">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="0">
+     <widget class="QLabel" name="label_23">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>    19号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="1">
+     <widget class="SwitchControl" name="pushButton_19">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="0">
+     <widget class="QLabel" name="label_24">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>109</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(11, 50, 93);
+border-color: rgb(110, 156, 255);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>   20号从机</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="1">
+     <widget class="SwitchControl" name="pushButton_20">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="label_25">
+   <property name="geometry">
+    <rect>
+     <x>-30</x>
+     <y>-30</y>
+     <width>171</width>
+     <height>171</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">image: url(:/icons/team.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_21">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>410</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton { color:#ffffff;background-color:#0B325D;border-style: none;border: 1px solid #DCDFE6;border-radius: 6px;padding: 5px 10px;font-size: 25px; }
+/* QPushButton:hover{ color: #ffffff; font-weight: bold; background-color: #fd839a; }*/
+
+QPushButton:hover {  color:#000000;background-color: #f8f8f8; border: 1px solid #f0f0f0; }
+
+</string>
+   </property>
+   <property name="text">
+    <string>在线</string>
+   </property>
+  </widget>
+  <zorder>listView</zorder>
+  <zorder>listWidget</zorder>
+  <zorder>widget_2</zorder>
+  <zorder>pushButton</zorder>
+  <zorder>formLayoutWidget</zorder>
+  <zorder>formLayoutWidget_2</zorder>
+  <zorder>label_25</zorder>
+  <zorder>pushButton_21</zorder>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SwitchControl</class>
+   <extends>QPushButton</extends>
+   <header location="global">ui\UartConfigWidget\switchcontrol.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

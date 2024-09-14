@@ -1,0 +1,57 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/analysic.png</file>
+        <file>icons/check.png</file>
+        <file>icons/close.png</file>
+        <file>icons/down.png</file>
+        <file>icons/error.png</file>
+        <file>icons/home.png</file>
+        <file>icons/item_01.png</file>
+        <file>icons/item_02.png</file>
+        <file>icons/logo.png</file>
+        <file>icons/logout.png</file>
+        <file>icons/member.png</file>
+        <file>icons/mine.png</file>
+        <file>icons/mini.png</file>
+        <file>icons/modular.png</file>
+        <file>icons/money.png</file>
+        <file>icons/out.png</file>
+        <file>icons/phone.png</file>
+        <file>icons/question.png</file>
+        <file>icons/setting.png</file>
+        <file>icons/show.png</file>
+        <file>icons/up.png</file>
+        <file>icons/warn.png</file>
+        <file>icons/school.png</file>
+        <file>icons/team.png</file>
+        <file>icons/Clo.png</file>
+        <file>icons/blak.png</file>
+        <file>icons/blue.png</file>
+        <file>icons/break off.png</file>
+        <file>icons/channel.png</file>
+        <file>icons/com.png</file>
+        <file>icons/connect.png</file>
+        <file>icons/down_1.png</file>
+        <file>icons/file.png</file>
+        <file>icons/green.png</file>
+        <file>icons/height.png</file>
+        <file>icons/initialization.png</file>
+        <file>icons/low.png</file>
+        <file>icons/rate.png</file>
+        <file>icons/red.png</file>
+        <file>icons/RES.png</file>
+        <file>icons/save.png</file>
+        <file>icons/star.png</file>
+        <file>icons/stop.png</file>
+        <file>icons/trademark.png</file>
+        <file>icons/up_1.png</file>
+        <file>icons/wave.png</file>
+        <file>icons/white.png</file>
+        <file>icons/y_set.png</file>
+        <file>icons/yello.png</file>
+        <file>icons/con_online.png</file>
+        <file>icons/eeg.png</file>
+        <file>icons/myIMP.png</file>
+        <file>icons/startonline.png</file>
+    </qresource>
+</RCC>
