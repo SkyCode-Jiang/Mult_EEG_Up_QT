@@ -4,6 +4,10 @@ QT_Creator 4.11
 
 QT 5.14.1 MinGW
 
+类拆分
+
+
+
 ## 数据格式
 
 ![image-20240709143702382](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20240709143702382.png)
@@ -27,7 +31,6 @@ qDebug()<<framedata;  "FF087EDD907EC7BA7EAF807E99487E84617E70727E5F4A7E51727E43C
 ## 标签信息
 
 
-拆分信息
 待完善：
 
 拆分：
