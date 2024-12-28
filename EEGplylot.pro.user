@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.11.1, 2024-09-19T23:44:07. -->
+<!-- Written by QtCreator 4.11.1, 2024-12-28T13:35:46. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -287,9 +287,8 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">EEGplylot2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:F:/Desktop/UpCom_code/0_split/Mult_EEG_Up_QT-main/Mult_EEG_Up_QT/EEGplylot.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">F:/Desktop/UpCom_code/0_split/Mult_EEG_Up_QT-main/Mult_EEG_Up_QT/EEGplylot.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:F:/Desktop/UpCom_code/mxk/Mult_EEG_Up_QT/EEGplylot.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">F:/Desktop/UpCom_code/mxk/Mult_EEG_Up_QT/EEGplylot.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
