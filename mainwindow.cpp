@@ -160,9 +160,9 @@ void MainWindow::ALLdata_first_set()
     }
 
     tcpServer = new QTcpServer();//监听套接字
-   /* connect(tcpSocket, &QTcpSocket::readyRead, this, &MainWindow::onReadData);
+    connect(tcpSocket, &QTcpSocket::readyRead, this, &MainWindow::onReadData);
     connect(tcpServer, &QTcpServer::newConnection, this, &MainWindow::onNewConnect);
-    tcpServer->listen(QHostAddress::Any, 1888)*/;
+    tcpServer->listen(QHostAddress::Any, 1888);
 
 }
 
