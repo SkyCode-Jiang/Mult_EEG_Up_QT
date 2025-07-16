@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     thread1 = new QThread();
     myBdfData = new BdfData(this);
     myFilterTool = new  FilterTool(this);
