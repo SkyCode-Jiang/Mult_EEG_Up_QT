@@ -95,6 +95,7 @@ MainWindow::MainWindow(QWidget *parent)
     displot_intial();
 
 
+
     ui->y_set->addItem("0.0001");
     ui->y_set->addItem("0.1");
     ui->y_set->addItem("1");
@@ -102,7 +103,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->y_set->addItem("5");
     //   ui->y_set->addItem("7");
     ui->y_set->addItem("10");
-
+    triggerInit();
+    createVLineCreate("Still",0.5,0);
 
     //(7. 数据位
 
@@ -113,8 +115,6 @@ MainWindow::MainWindow(QWidget *parent)
     Imp10k->setIcon("init");
     Imp10k->setBodyText("阻抗已经小于10K");
     Imp10k->setButtonText("确定");
-
-
 
 //     set_filter(20,0,0,0,500);
     //Show_Mes->exec();
@@ -695,7 +695,7 @@ void MainWindow::on_initialization_clicked()
 
 }
 
-//创建画布:
+////创建画布:
 void MainWindow:: Create_canvas(double num)
 {
     V_constant.clear();
@@ -938,27 +938,110 @@ void MainWindow::dataUartAnny(QByteArray rx_data)
     }
 }
 
-//画标签和游标2：
-void MainWindow::createVLineTag2(QString val, int x, double y)
+void MainWindow:: triggerInit()
+{
+    qDebug()<<"标签显示初始化";
+
+    for(int i=0;i<100;i++)
+    {
+        auto text = new QCPItemText(mPlot);
+        text->setText("");
+        text->setPositionAlignment(Qt::AlignTop|Qt::AlignHCenter);
+        text->position->setTypeX(QCPItemPosition::ptPlotCoords);
+        text->position->setTypeY(QCPItemPosition::ptAxisRectRatio);
+        text->setClipToAxisRect(false);
+        QFont font;
+        font.setPointSize(12);
+        font.setBold(true);
+        text->setFont(font); // make font a bit larger
+        text->setPen(QPen(Qt::black)); // show black border around text
+
+        text->position->setCoords(0,0);
+        item_text[i]=text;
+        item_text[i]->setVisible(false);
+
+        trigger_line = new QCPItemLine(mPlot);
+        trigger_line->start->setTypeX(QCPItemPosition::ptPlotCoords);
+        trigger_line->end->setTypeX(QCPItemPosition::ptPlotCoords);
+        trigger_line->start->setTypeY(QCPItemPosition::ptAxisRectRatio);
+        trigger_line->end->setTypeY(QCPItemPosition::ptAxisRectRatio);
+        //初始化标签线，标签线指向
+        trigger_line->start->setCoords(0, 0);
+        trigger_line->end->setCoords(0, 10);
+        //标签线显示在哪一个图像上
+        //trigger_line->setClipAxisRect(axisrect[1]);
+        //使线在整个customplot上可见
+//        trigger_line->setClipToAxisRect(false);
+//        trigger_line->setVisible(false);
+        QPen pen;
+        pen.setColor(QColor(Qt::red));
+        trigger_line->setPen(pen);
+        arrow[i]=trigger_line;
+        arrow[i]->setClipToAxisRect(false);
+        arrow[i]->setVisible(false);
+       // arrow[i]->setLayer("background");
+    }
+
+}
+
+// 添加标签
+void MainWindow::createVLineCreate(QString val, double x, double y)
 {
 
-    // 设置游标垂直线
-    //QCPItemStraightLine *m_vline = new QCPItemStraightLine(ui->show);
-    //m_vline->setLayer("overlay");
-    // 颜色随机
-    //m_vline->setPen(QPen(Qt::red));
-    // 超出坐标轴范围则不显示游标线
-    //m_vline->setClipToAxisRect(true);
-    // 画竖线，x为curtime，y只要0和1即可绘制直线了
-    //m_vline->point1->setCoords(x, 0);
-    //m_vline->point2->setCoords(x, 1);
-    //all_line.append(m_vline);
+    if(label_count_resr<100)
+    {   //标签线指向
+        item_text[label_count_resr]->setText(val);
+        item_text[label_count_resr]->position->setCoords(x,0);
+        item_text[label_count_resr]->setVisible(true);
+        arrow[label_count_resr]->start->setCoords(x,0);
+        arrow[label_count_resr]->end->setCoords(x,999999);
+        arrow[label_count_resr]->setVisible(true);
+        label_count_resr++;
+        qDebug()<<"标签横坐标:"<<x;
+        if(label_count_resr==100)
+        {
+            label_count_resr=0;
+        }
+    }
+}
+
+// 旧标签清掉
+void MainWindow::createVLineTagClear()
+{
+    for (int i = 0; i < 100; i++)
+    {
+        item_text[i]->setText("");
+        item_text[i]->setVisible(false);
+        arrow[i]->setVisible(false);
+        // 把位置也复位
+        item_text[i]->position->setCoords(0, 0);
+        arrow[i]->start->setCoords(0, 0);
+        arrow[i]->end->setCoords(0, 1);
+    }
+    label_count_resr = 0;   // 从头开始复用
+}
+
+//画标签和游标2：
+void MainWindow::createVLineTag2(QString val, double x, double y)
+{
+
+//    // 设置游标垂直线
+//    QCPItemStraightLine *m_vline = new QCPItemStraightLine(ui->show);
+//    m_vline->setLayer("overlay");
+//    // 颜色随机
+//    m_vline->setPen(QPen(Qt::red));
+//    // 超出坐标轴范围则不显示游标线
+//    m_vline->setClipToAxisRect(true);
+//    // 画竖线，x为curtime，y只要0和1即可绘制直线了
+//    m_vline->point1->setCoords(x, 0);
+//    m_vline->point2->setCoords(x, 1);
+//    all_linex.append(m_vline);
     // 设置文本框
     // 超出坐标轴范围则不显示标签
     QCPItemText *m_currentLabel = new QCPItemText(ui->show);
     m_currentLabel->setClipToAxisRect(true);
     m_currentLabel->setPadding(QMargins(3, 3, 3, 3));
-    m_currentLabel->setPen(QPen(QColor(130, 130, 130), 0, Qt::DotLine));
+    m_currentLabel->setPen(QPen(QColor(255, 130, 130), 0, Qt::DotLine));
     m_currentLabel->setBrush(Qt::NoBrush);
     // 可以设置显示位置跟随锚点的位置，此次我设置的是绝对位置，添加TAG用的
     m_currentLabel->position->setCoords(x, y);
@@ -967,7 +1050,6 @@ void MainWindow::createVLineTag2(QString val, int x, double y)
     m_currentLabel->setText(val);
     all_lab.append(m_currentLabel);
 }
-
 //画标签和游标3：
 void MainWindow::createVLineTag3(QString val, int x, double y, int num)
 {
@@ -1050,9 +1132,11 @@ int MainWindow::LabAnary(QString str)
         bdf_save_label[1]=label_local;
         now_label_txt[0]=label_txt;
         now_label_txt[1]=label_local;
+        now_lable_show = 0;
 //        myBdfData->MetalStart++;
 //        ++操作注意防止数据溢出
         myBdfData->set_MetalStart(2);
+
 
         return 1;
     }
@@ -1151,6 +1235,7 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L)
                     if (time_x[now_channel]>x_range)
                     {
                         time_x[now_channel]=0;
+
                         //单坐标清除
                         ui->show->graph(chall_num)->data().data()->clear();
                         //多坐标清除
@@ -1160,9 +1245,12 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L)
                             MAX_Shou[i]=-1.79e308;
                             MIN_Shou[i]=1.79e308;
                         }
-
                         Max=-1.79e308;
                         Min=1.79e308;
+
+
+                    //当前时间 time_x 超过 x_range 时，把所有旧标签全部清掉
+                    createVLineTagClear();
 
                     }
 
@@ -1224,7 +1312,15 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L)
                     //*********************************************脑电显示**
                     if(Now_Function==NOW_EEG_SHOW)
                     {
+
                        plot_EEG_Fun(eeg,i_num,now_channel);
+
+                       if( now_label_txt[0] != 0 && now_lable_show == 0)
+                       {
+                             now_lable_show = 1;
+                             createVLineCreate( QString::number(now_label_txt[0]),time_x[0] + now_label_txt[1] / 1000 ,0);
+                       }
+
                         // mPlot->addData(i_num,0,time_x[now_channel],eeg);
                        // Calibration_value(i_num,(ui->y_set->currentText().toInt()*1000+ MAX_Shou[i_num])-(MIN_Shou[i_num]-(ui->y_set->currentText().toInt()*1000)));
                     }
@@ -1284,12 +1380,10 @@ void MainWindow::lable_order(QCustomPlot *my_customplot,QCPAxis *yAxis, QString 
         yAxisLabel[label_num]->position->setCoords(20,0.5);
         label_num++;
 
-
         if(label_num==channel.toInt(&ok,10))
         {
             label_num=0;
         }
-
 //        QString labelName = QString("SlaveIR_%1").arg(hadlaber+1);
 //        QLabel *setlabel = this->findChild<QLabel *>(labelName);
 //        setlabel->setText(label);

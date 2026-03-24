@@ -226,11 +226,20 @@ public:
     double self_adaption_b = 0; //y轴显示常数
 
     //标签显示相关
-    void createVLineTag2(QString val, int x, double y);
+    void createVLineTag2(QString val, double x, double y);
     void createVLineTag3(QString val, int x, double y, int num);
     QString cha_lab; //承接标签位置
     QVector<QCPItemText*> all_lab;
     QVector<QCPItemStraightLine*> all_linex;
+
+    int label_count_resr = 0;
+    QCPItemLine *arrow[100];
+    QCPItemText *item_text[100];
+    QCPItemLine *trigger_line;
+    bool now_lable_show = 0;
+    void triggerInit();
+    void createVLineCreate(QString val, double x, double y);
+    void createVLineTagClear();
 
     //校验丢包相关
     int last_save[MAX_Slave];
@@ -289,6 +298,7 @@ public:
     int save_size=2072;
 
 
+
     void lable_order(QCustomPlot *my_customplot,QCPAxis *yAxis, QString label, QCPAxisRect *rect);
     QCPItemText* yAxisLabel[16];
 
@@ -302,7 +312,7 @@ private:
     FilterTool *myFilterTool;   ///< 滤波器工具类
     DeviceMicroEEG *myMicroEEG; ///< 串口EEG设备
 public:
-        EEGData *baseEEGStruct;
+    EEGData *baseEEGStruct;
 
 
 

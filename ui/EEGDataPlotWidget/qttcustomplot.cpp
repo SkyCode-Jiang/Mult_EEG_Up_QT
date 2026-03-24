@@ -160,6 +160,7 @@ void QttCustomPlot::addRect(int idx)
 
     xAxis->setRange(StartX, 5);
 
+
     Rect->setupFullAxesBox(true);    // 让四个轴关联，并全部显示出来
 
 //    Rect->setRangeDrag(Qt::Horizontal | Qt::Vertical); //水平方向拖动
@@ -195,9 +196,6 @@ void QttCustomPlot::addRect(int idx)
     xAxis->setTicks(false);
     yAxis->setVisible(false);
     yAxis->setTickLabels(false);
-    xAxis->grid()->setSubGridVisible(false);
-
-
 
     plotLayoutGrid->insertRow(idx);
     plotLayoutGrid->addElement(idx, 0, Rect);
