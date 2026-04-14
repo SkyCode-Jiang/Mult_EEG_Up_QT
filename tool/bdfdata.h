@@ -36,7 +36,7 @@ public:
 
 
     int set_bdf();//设置BDF文件头
-    void addBDFdata(int ID,int eeg_data,QVector<double> & BDF_Buff_use);
+    void addBDFdata(int ID,double eeg_data,QVector<double> & BDF_Buff_use);
     void addlabel_zero(int id,QVector<double> & BDF_Buff_use);
     int addlabel_common(int id,QVector<double> & BDF_Buff_use_com);
     void BDF_data(int Nownum,double eeg);

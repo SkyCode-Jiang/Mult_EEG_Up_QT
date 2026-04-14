@@ -88,7 +88,7 @@ public:
 
     QVector<QString> Online_SendData;
     QString Onlie_SendTCPData;
-
+    QString Onlie_SendTCPData_Double;
 
      int now_label_txt[2]={0,0}; //now_label_txt[0] 代表内容 now_label_txt[1] 代表位置
      int bdf_save_label[2]={0,0};
@@ -221,6 +221,7 @@ public:
     double time_x[MAX_Slave];
 
     bool OK;
+    bool OK_2;
     double pen = -100000; //测试用，正式版删除
     double self_adaption_a = 0; //y轴显示系数
     double self_adaption_b = 0; //y轴显示常数

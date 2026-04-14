@@ -49,7 +49,7 @@ int BdfData::set_bdf()
 
      for(int i=0; i<chns; i++)
      {
-         if(edf_set_physical_minimum(this->hdl, i, -150000.0))
+         if(edf_set_physical_minimum(this->hdl, i, -8388608))
          {
              printf("error: edf_set_physical_minimum()\n");
 
@@ -67,7 +67,7 @@ int BdfData::set_bdf()
 
      for(int i=0; i<chns; i++)
      {
-         if(edf_set_physical_maximum(this->hdl, i, 8388608))
+         if(edf_set_physical_maximum(this->hdl, i, 8388607))
          {
              printf("error: edf_set_physical_maximum()\n");
 
@@ -143,7 +143,7 @@ int BdfData::set_bdf()
      //数据通道物理意义设置
      for(int i=0; i<chns; i++)
      {
-       if(edf_set_physical_dimension(this->hdl, i, "uV"))
+       if(edf_set_physical_dimension(this->hdl, i, "V"))
        {
          printf("error: edf_set_physical_dimension()\n");
 
@@ -192,6 +192,8 @@ void BdfData::set_MetalStart(int num)
 //添加BDF数据
 void BdfData::BDF_data(int Nownum,double eeg)
 {
+//    qDebug()<<"保存数据"<<eeg;
+//     eeg =39805.923;
     addBDFdata(Nownum ,eeg ,this->bdfData.EEG_BDF_data[Nownum]);
 }
 
@@ -242,7 +244,7 @@ void BdfData::addlabel_zero(int id,QVector<double> & BDF_Buff_usezero)
  }
 
 //bdf通用代码
-void BdfData::addBDFdata(int ID,int eeg_data,QVector<double> & BDF_Buff_use)
+void BdfData::addBDFdata(int ID,double eeg_data,QVector<double> & BDF_Buff_use)
 {
     int NowID=ID;
     std::unique_ptr<double> my_Buffer(new double[SMP_FREQ]) ;
@@ -271,7 +273,7 @@ void BdfData::addBDFdata(int ID,int eeg_data,QVector<double> & BDF_Buff_use)
         }
         //如果标签在对应数据位置非0处，判断now_label_txt是否为0；标签在对应数据位置0处，此时now_label_txt为-1
         BDF_Buff_use[save_sys[NowID]] = addlabel_common(NowID,BDF_Buff_use);
-
+//        qDebug()<<"存的标签是" <<BDF_Buff_use[save_sys[NowID]];
         save_sys[NowID]++;
         if(save_sys[NowID]==SMP_FREQ)
         {
@@ -294,6 +296,14 @@ void BdfData::addBDFdata(int ID,int eeg_data,QVector<double> & BDF_Buff_use)
         {
            // qDebug()<<NowID<<"写入"<<BDF_Buff_use[0];
             memcpy(my_Buffer.get(), &BDF_Buff_use[0], BDF_Buff_use.size()*sizeof(double));
+//            for(int d = 0 ;d<10;d++)
+//            {
+//                qDebug()<<"测试写入"<<BDF_Buff_use[d];
+//            }
+//            for(int d = 0 ;d<10;d++)
+//            {
+//                qDebug()<<"测试写入2"<<* (my_Buffer.get()  + d );
+//            }
             if(edfwrite_physical_samples(hdl, my_Buffer.get()))
             {
                qDebug()<<NowID<<"error: edfwrite_digital_samples()\n";

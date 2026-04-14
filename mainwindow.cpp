@@ -15,13 +15,11 @@ MainWindow::MainWindow(QWidget *parent)
     myBdfData = new BdfData(this);
     myFilterTool = new  FilterTool(this);
     myMicroEEG = new DeviceMicroEEG(this);
-
-
     ALLdata_first_set();
     ui->file->setDisabled(1);
     ui->save->setDisabled(1);
   //  thread2 = new QThread();
-
+ui->pushButton_4->setDisabled(true);
     mPlot = new QttCustomPlot(1);
     //设置自动滚动
     mPlot->setAutoScroll(false);
@@ -878,6 +876,7 @@ void MainWindow::DisConAnay(QString str)
 * @return        QByteArray rx_data
 * @author        JCLStill
 **********************************************/
+
 void MainWindow::dataUartAnny(QByteArray rx_data)
 {
     QString framedata;
@@ -1158,8 +1157,8 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L)
     //判断数据包是否有所用从机数据
     if (rec.mid(baseEEGStruct->PACHET_TRAN_SYMBOL_LOC,baseEEGStruct->PACHET_TRAN_SYMBOL_LEN)!=PACKET_TRAN_SYMBOL_TXT )
     {
-        qDebug()<<rec.mid(baseEEGStruct->PACHET_TRAN_SYMBOL_LOC,baseEEGStruct->PACHET_TRAN_SYMBOL_LEN);
-        qDebug()<< baseEEGStruct->PACHET_TRAN_SYMBOL_LOC <<"  Not seccess";
+//        qDebug()<<rec.mid(baseEEGStruct->PACHET_TRAN_SYMBOL_LOC,baseEEGStruct->PACHET_TRAN_SYMBOL_LEN);
+      //  qDebug()<< baseEEGStruct->PACHET_TRAN_SYMBOL_LOC <<"  Not seccess";
         return;
     }
 
@@ -1225,7 +1224,7 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L)
                 //data_verification_all(rec.mid(2,2),rec.mid(all3,2));
 
                 cha_data = rec.mid(baseEEGStruct->PACKET_CHAN_EEG_OFFSET,L);
-                //qDebug()<<cha_data;
+//                qDebug()<<cha_data;
 
                 for(int i = 0; i<(cha_data.length()/baseEEGStruct->PACKET_CHAN_SINGLE_EEG_LEN); ++i)
                 {
@@ -1256,8 +1255,11 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L)
 
                     int k = i*baseEEGStruct->PACKET_CHAN_SINGLE_EEG_LEN;
                     QString str = cha_data.mid(k,baseEEGStruct->PACKET_CHAN_SINGLE_EEG_LEN);
-                    int ix = str.toInt(&OK,16); //转16进制整形
+                    // qDebug()<<"str"<<str;
+                    int ix = str.toInt(&OK_2,16); //转16进制整形
+
                     double b = ix; //转double
+
                     // double eeg = ((b-8388608)*0.1442432/12);
                     double eeg;
                     if(EEG_IMP_Function==IMP_CONN)
@@ -1303,16 +1305,24 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L)
                             myBdfData->eventsave += 1;
                             bdf_save_label[0] = 0;
 //                            bdf_save_label[1] = 0;
-
                         }
 
-                        myBdfData->BDF_data(i_num,(eeg));
+//                        Onlie_SendTCPData_Double += QString::number(eeg) ;
+//                        Onlie_SendTCPData_Double += ',' ;
+//                       if(Onlie_SendTCPData_Double.length() >=  30)
+//                       {
+
+//                       }
+
+                         int  eegsave = ( ix -8388608 )  ;
+
+                        myBdfData->BDF_data(i_num,(eegsave));
                     }
                     //******************************************************
                     //*********************************************脑电显示**
                     if(Now_Function==NOW_EEG_SHOW)
                     {
-
+//                        qDebug()<<"图形数据"<<eeg;
                        plot_EEG_Fun(eeg,i_num,now_channel);
 
                        if( now_label_txt[0] != 0 && now_lable_show == 0)
@@ -1438,6 +1448,10 @@ void MainWindow::plot_EEG_Fun(double eeg,int i_num,int now_channel )
         ui->show->yAxis->setRange(Min-(ui->y_set->currentText().toInt()*1000), ui->y_set->currentText().toInt()*1000+Max);//修改y的显示范围
         mPlot->RectList[i_num]->axis(QCPAxis::atLeft)->setRange(MIN_Shou[i_num]-(ui->y_set->currentText().toInt()*1000), ui->y_set->currentText().toInt()*1000+ MAX_Shou[i_num]);
         mPlot->addData(i_num,0,time_x[now_channel],eeg);
+
+
+
+
         Calibration_value(i_num,(ui->y_set->currentText().toInt()*1000+ Max)-(Min-(ui->y_set->currentText().toInt()*1000)));
     }
 }
@@ -1626,7 +1640,7 @@ void MainWindow::on_pushButton_3_clicked()
             ui->pushButton_3->setText("Stop");
         }
     }
-
+    ui->pushButton_4->setEnabled(true);
 }
 
 void MainWindow::onDisConnect()
@@ -1674,23 +1688,35 @@ void MainWindow::onReadData()
     }
 }
 //1.数据拆分
+
  void MainWindow:: Onlie_Use_Dada(QString Onlie_UseDada)
  {
-     //  qDebug()<<Onlie_UseDada;
+     qDebug()<<"串口数据"<<Onlie_UseDada;
      Online_SendData.clear();
      for(int i = 0;i < chall;i++)
      {
          //(PACKET_CHALL_ONE_LEN)*i+2,PACKET_CHAN_CHANNEL_EEG_LEN是通道ID+数据+包ID+包尾
          //(PACKET_CHALL_ONE_LEN)*i+PACKET_CHAN_EEG_OFFSET,PACKET_CHAN_CHANNEL_EEG_LEN 为纯数据
          Online_SendData.append(Onlie_UseDada.mid((baseEEGStruct->PACKET_CHALL_ONE_LEN)*i+baseEEGStruct->PACKET_CHAN_EEG_OFFSET,baseEEGStruct->PACKET_CHAN_CHANNEL_EEG_LEN));
+
+//         qDebug()<<"Online_SendData"<<Online_SendData;
      }
      for (int j = 0;j < shujuliangint; j++) {
          for(int k = 0;k < chall; k++)
          {
              // qDebug()<<eeg;
-             QString str = Online_SendData[k].mid(j*6,6);
-             Onlie_SendData_add(str,0);
+
+             QString str_ = Online_SendData[k].mid(j*6,6);
+
+              qDebug()<<str_;
+//              int ix_ = str_.toInt(&OK_2,16); //转16进制整形
+//              double b_ = ix_; //转double
+//             double  eeg_online = ( (b_-8388608) * 0.480772 / 12);
+//              QString str2 = QString::number(eeg_online) ;
+
+             Onlie_SendData_add(str_,0);
          }
+
          // now_label_txt[0] 代表内容 now_label_txt[1] 代表位置
          int eeg_event = 0;
 //         if(j== now_label_txt[1])
@@ -1698,60 +1724,126 @@ void MainWindow::onReadData()
 //             eeg_event = now_label_txt[0];
 //         }
          //这块需要修改
-         if(j== now_label_txt[1])
+//         if(j == now_label_txt[1])
+//         {
+//             eeg_event = now_label_txt[0];
+//         }
+
+         now_label_txt[1] --;
+         if(now_label_txt[1] == 0)
          {
              eeg_event = now_label_txt[0];
          }
+//         qDebug()<<"Online_SendData"<<Online_SendData;
          Onlie_SendData_add(0,eeg_event);
      }
  }
 
 
  //2.data包括脑电数据和标签数据
-  void MainWindow:: Onlie_SendData_add(QString EEG_data,int EEG_Event)
-  {
-      Now_TCP_Data++;
-      if(Now_TCP_Data < chall+1)      {
-        // Onlie_SendTCPData+=QString::number(EEG_data,'f',3)+',';
-           Onlie_SendTCPData+=EEG_data+',';
-      }
+//  void MainWindow:: Onlie_SendData_add(QString EEG_data,int EEG_Event)
+//  {
+//      Now_TCP_Data++;
+//      if(Now_TCP_Data < chall+1)      {
+//        // Onlie_SendTCPData+=QString::number(EEG_data,'f',3)+',';
+//           Onlie_SendTCPData+=EEG_data+',';
+//      }
 
 
-      //八通道数据+标签一共9次
-      if(Now_TCP_Data == chall+1)
-      {
-          Now_TCP_Data=0;
-          if(Onlie_SendEvent !=  now_label_txt[0] )
-          {
-              Online_Num++;
-              Onlie_DoneEvent ++;
-              qDebug()<<"发送次数为:"<<Onlie_DoneEvent;
-          }
-          if( Onlie_NowEvent != Onlie_DoneEvent)
-          {
-              Onlie_NowEvent = Onlie_DoneEvent;
-              Onlie_SendEvent =  now_label_txt[0];
-              qDebug()<<"发送的标签是："<<Onlie_SendEvent;
+//      //八通道数据+标签一共9次
+//      if(Now_TCP_Data == chall+1)
+//      {
+//          Now_TCP_Data=0;
+//          if(Onlie_SendEvent !=  now_label_txt[0] )
+//          {
+//              Online_Num++;
+//              Onlie_DoneEvent ++;
+//              qDebug()<<"发送次数为:"<<Onlie_DoneEvent;
+//          }
+//          if( Onlie_NowEvent != Onlie_DoneEvent)
+//          {
+//              Onlie_NowEvent = Onlie_DoneEvent;
+//              Onlie_SendEvent =  now_label_txt[0];
+//              qDebug()<<"发送的标签是："<<Onlie_SendEvent;
+////              Onlie_SendTCPData+=QString::number(Onlie_SendEvent,10)+";";
+//              if( Onlie_SendEvent<= 0x0F)
+//              {
+//                Onlie_SendTCPData+='0'+QString::number(Onlie_SendEvent,16);
+//              }else
+//              {
+//                 Onlie_SendTCPData+=QString::number(Onlie_SendEvent,16);
+//              }
+
+//              qDebug()<<"发送的带标签数据是："<<Onlie_SendTCPData;
+
+//          }
+//          else
+//          {
+////               Onlie_SendTCPData+=QString::number(0,10)+QString::number(0,10)+";";
+//               Onlie_SendTCPData+=QString::number(0,10)+QString::number(0,10);
+//          }
+//          //Onlie_SendTCPData+=QString::number(Onlie_SendEvent,10);
+//          //qDebug()<<Onlie_SendTCPData.length();
+
+
+////          if(Online_Num!=1)
+////          {
+////            // qDebug()<<Online_Num;
+////             Onlie_Send(Onlie_SendTCPData);
+////          }
+
+////每次发送的数据
+//         qDebug()<<"在线发送数据"<<Onlie_SendTCPData;
+
+//          Onlie_Send(Onlie_SendTCPData);
+
+//          Onlie_SendTCPData.clear();
+//      }
+//     //
+//  }
+ void MainWindow:: Onlie_SendData_add(QString EEG_data,int EEG_Event)
+ {
+
+     Now_TCP_Data++;
+     if(Now_TCP_Data < chall+1)      {
+       // Onlie_SendTCPData+=QString::number(EEG_data,'f',3)+',';
+          Onlie_SendTCPData+=EEG_data+',';
+     }
+
+     //八通道数据+标签一共9次
+     if(Now_TCP_Data == chall+1)
+     {
+         Now_TCP_Data=0;
+         if( Onlie_SendEvent !=  EEG_Event && EEG_Event != 0 )
+         {
+             Online_Num++;
+             Onlie_DoneEvent ++;
+             qDebug()<<"发送次数为:"<<Onlie_DoneEvent;
+         }
+         if( Onlie_NowEvent != Onlie_DoneEvent )
+         {
+             Onlie_NowEvent = Onlie_DoneEvent;
+             Onlie_SendEvent = EEG_Event;
+             qDebug()<<"发送的标签是："<<Onlie_SendEvent;
 //              Onlie_SendTCPData+=QString::number(Onlie_SendEvent,10)+";";
-              if( Onlie_SendEvent<= 0x0F)
-              {
-                Onlie_SendTCPData+='0'+QString::number(Onlie_SendEvent,16);
-              }else
-              {
-                 Onlie_SendTCPData+=QString::number(Onlie_SendEvent,16);
-              }
+             if( Onlie_SendEvent<= 0x0F)
+             {
+               Onlie_SendTCPData+='0'+QString::number(Onlie_SendEvent,16);
+             }else
+             {
+                Onlie_SendTCPData+=QString::number(Onlie_SendEvent,16);
+             }
 
+             qDebug()<<"发送的带标签数据是："<<Onlie_SendTCPData;
 
-              qDebug()<<"发送的带标签数据是："<<Onlie_SendTCPData;
-
-          }
-          else
-          {
+         }
+         else
+         {
 //               Onlie_SendTCPData+=QString::number(0,10)+QString::number(0,10)+";";
-               Onlie_SendTCPData+=QString::number(0,10)+QString::number(0,10);
-          }
-          //Onlie_SendTCPData+=QString::number(Onlie_SendEvent,10);
-          //qDebug()<<Onlie_SendTCPData.length();
+              Onlie_SendTCPData+=QString::number(0,10)+QString::number(0,10);
+         }
+         //Onlie_SendTCPData+=QString::number(Onlie_SendEvent,10);
+         //qDebug()<<Onlie_SendTCPData.length();
 
 
 //          if(Online_Num!=1)
@@ -1761,17 +1853,18 @@ void MainWindow::onReadData()
 //          }
 
 //每次发送的数据
-//         qDebug()<<Onlie_SendTCPData;
+        qDebug()<<"在线发送数据"<<Onlie_SendTCPData;
 
-          Onlie_Send(Onlie_SendTCPData);
+         Onlie_Send(Onlie_SendTCPData);
 
-          Onlie_SendTCPData.clear();
-      }
-     //
-  }
+         Onlie_SendTCPData.clear();
+     }
+    //
+ }
 
   //3.TCP数据发送
 void MainWindow:: Onlie_Send(QString Now_Data)
+
 {
     if(tcpSocket->isWritable())
     {
