@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1939</width>
+    <width>2116</width>
     <height>1139</height>
    </rect>
   </property>
@@ -409,6 +409,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="pushButton_8">
+          <property name="text">
+           <string>Power</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QWidget" name="widget_3" native="true">
           <property name="maximumSize">
            <size>
@@ -763,6 +770,13 @@
             </widget>
            </item>
            <item>
+            <widget class="QLabel" name="error">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QLineEdit" name="lineEdit_2">
              <property name="enabled">
               <bool>false</bool>
@@ -793,9 +807,83 @@
           <zorder>lineEdit_2</zorder>
           <zorder>pushButton_3</zorder>
           <zorder>pushButton_4</zorder>
+          <zorder>error</zorder>
          </widget>
         </item>
        </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QPushButton" name="pushButton_9">
+        <property name="text">
+         <string>未连接</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_10">
+        <property name="text">
+         <string>未连接</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_11">
+        <property name="text">
+         <string>未连接</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_12">
+        <property name="text">
+         <string>未连接</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_13">
+        <property name="text">
+         <string>未连接</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_14">
+        <property name="text">
+         <string>未连接</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_15">
+        <property name="text">
+         <string>未连接</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_16">
+        <property name="text">
+         <string>未连接</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </item>
@@ -1073,7 +1161,7 @@ color: rgb(255, 255, 255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1939</width>
+     <width>2116</width>
      <height>26</height>
     </rect>
    </property>

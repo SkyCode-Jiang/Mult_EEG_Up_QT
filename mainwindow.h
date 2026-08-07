@@ -71,8 +71,6 @@ public:
     QTextStream out;
     QFile pathx;
 
-
-
     //在线数据发送
     int online =0;//在线实验标志
     int onlien_startsend = 0;
@@ -159,6 +157,8 @@ private slots:
 
      void on_pushButton_7_clicked();
 
+     void on_pushButton_8_clicked();
+
 public:
     void displot_intial();//显示屏幕初始化
     void Create_canvas(double num);//创建画布
@@ -198,6 +198,7 @@ public:
 
   //  QString framedata;
     QString cha_data;
+    QString bat_data;
     int first_flag = 0;
     int count_num = 0;
     int stop_flag = 0;
@@ -290,6 +291,8 @@ public:
     void Calibration_value(int Chall_show_value,double unint_mv);
     int LabAnary(QString str);                                     //标签事件处理
 
+    void bat_calculate(QString mybat,int id);                               //电量计算
+
     QttCustomPlot *mPlot;
     void My_UI_show();
     int Fir_Star_Con=0;
@@ -312,6 +315,7 @@ private:
     BdfData *myBdfData;         ///< BDF保存类
     FilterTool *myFilterTool;   ///< 滤波器工具类
     DeviceMicroEEG *myMicroEEG; ///< 串口EEG设备
+
 public:
     EEGData *baseEEGStruct;
 

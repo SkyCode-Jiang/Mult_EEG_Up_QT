@@ -186,6 +186,7 @@ void MainWindow::on_serial_clicked()
         Fir_Star_Con=1;
     }
 
+
     //绘图子进程
     mPlot->moveToThread(thread1);
     thread1->start();
@@ -279,7 +280,7 @@ void MainWindow::on_serial_clicked()
            {
                ch[i].clear();
            }
-           QMessageBox::information(this,"提示信息","串口关闭");
+//           QMessageBox::information(this,"提示信息","串口关闭");
            ui->y_set->setEnabled(true);
            star_flag = false;
            ui->star->setIcon(QIcon(":/icons/star.png"));
@@ -299,6 +300,28 @@ void MainWindow::on_serial_clicked()
            ui->wave->setEnabled(true);
            ui->file->setDisabled(1);
            ui->save->setDisabled(1);
+
+
+
+
+           if (!thread1->isRunning()) {
+                 return; // 线程没在跑，直接返回
+             }
+
+             // 1. 停止线程事件循环
+             thread1->quit();
+
+             // 2. 等待线程真正结束（超时5秒）
+             if (!thread1->wait(1000)) {
+                 // 没正常结束，强制终止（不推荐，万不得已用）
+                 thread1->terminate();
+                 thread1->wait();
+             }
+
+             qDebug() << "线程已安全停止";
+
+
+
        }
 }
 
@@ -932,6 +955,9 @@ void MainWindow::dataUartAnny(QByteArray rx_data)
             //  framedata_al.squeeze();
             // QVector<QString> ().swap(framedata_al);
 //            qDebug()<<framedata;
+//            qDebug()<<"数据包";
+//            qDebug()<< baseEEGStruct->PACKET_CHAN_LEN;
+
             chuli_muli_new_fir(framedata,baseEEGStruct->PACKET_CHAN_CHANNEL_EEG_LEN);
         }
     }
@@ -1141,6 +1167,39 @@ int MainWindow::LabAnary(QString str)
     }
 }
 
+
+/**********************************************
+* @projectName   EEGplylot
+* @brief         标签判断
+                 now_label_txt[0] 代表内容 now_label_txt[1] 代表位置
+* @param         包含标签的字符串
+* @return        int
+* @author        JCLStill
+**********************************************/
+
+void MainWindow::bat_calculate(QString mybat,int id)
+{
+    QList<QPushButton *> buttons = {
+        ui->pushButton_9,
+        ui->pushButton_10,
+        ui->pushButton_11,
+        ui->pushButton_12,
+        ui->pushButton_13,
+        ui->pushButton_14,
+        ui->pushButton_15,
+        ui->pushButton_16,
+    };
+qDebug()<<mybat;
+    QString s_bat =  mybat.mid(2,4);
+    qDebug()<<s_bat;
+    int ix = s_bat.toInt(&OK,16);
+    float f_bat= ix/ 4096.0 * 4.3 * 3.12 ;
+    QString batshow =  QString::number(f_bat, 'f', 2) + 'V';
+    QPushButton *button = buttons.at(id);
+    button->setText(batshow);
+
+}
+
 /**********************************************
 * @projectName   EEGplylot
 * @brief         数据处理
@@ -1155,14 +1214,18 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L)
 //      qDebug()<< shujuliangint*chall + chall*8;
 //      qDebug()<< rec.mid((shujuliangint*chall*6 + chall*8),2);
     //判断数据包是否有所用从机数据
-    if (rec.mid(baseEEGStruct->PACHET_TRAN_SYMBOL_LOC,baseEEGStruct->PACHET_TRAN_SYMBOL_LEN)!=PACKET_TRAN_SYMBOL_TXT )
-    {
+//    if (   ( rec.mid(   baseEEGStruct->PACHET_TRAN_SYMBOL_LOC,baseEEGStruct->PACHET_TRAN_SYMBOL_LEN)!=PACKET_TRAN_SYMBOL_TXT   )            &&  ( rec.mid(   baseEEGStruct->PACHET_TRAN_SYMBOL_LOC,baseEEGStruct->PACHET_TRAN_SYMBOL_LEN)!=PACKET_TRAN_SYMBOL_TXT_T   )            )
+//    {
 //        qDebug()<<rec.mid(baseEEGStruct->PACHET_TRAN_SYMBOL_LOC,baseEEGStruct->PACHET_TRAN_SYMBOL_LEN);
-      //  qDebug()<< baseEEGStruct->PACHET_TRAN_SYMBOL_LOC <<"  Not seccess";
-        return;
-    }
+//        qDebug()<< baseEEGStruct->PACHET_TRAN_SYMBOL_LOC <<"  Not seccess";
+//        ui->error->setText(  rec.mid(baseEEGStruct->PACHET_TRAN_SYMBOL_LOC,baseEEGStruct->PACHET_TRAN_SYMBOL_LEN) );
+//        ui->serial->click();
+//        ui->serial->click();
 
-    else
+//        return;
+//    }
+
+//    else
     {
         //标签判断
         //now_label_txt[0] 代表内容 now_label_txt[1] 代表位置
@@ -1224,6 +1287,8 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L)
                 //data_verification_all(rec.mid(2,2),rec.mid(all3,2));
 
                 cha_data = rec.mid(baseEEGStruct->PACKET_CHAN_EEG_OFFSET,L);
+                bat_data = rec.mid(baseEEGStruct->PACKET_CHAN_BAT_OFFSET,baseEEGStruct-> PACKET_CHAN_CHANNEL_BAT_LEN);
+                bat_calculate(bat_data,i_num);
 //                qDebug()<<cha_data;
 
                 for(int i = 0; i<(cha_data.length()/baseEEGStruct->PACKET_CHAN_SINGLE_EEG_LEN); ++i)
@@ -1952,6 +2017,14 @@ void MainWindow::on_pushButton_5_clicked()
      disconnect(myMicroEEG->EEG_Port,&QSerialPort::readyRead , this, &MainWindow::displayData);
 
 }
+
+
+void MainWindow::on_pushButton_8_clicked()
+{
+   myMicroEEG->PowerGet();
+
+}
+
 
 //1).多通道数据格式设置:
 void MainWindow::data_sample()

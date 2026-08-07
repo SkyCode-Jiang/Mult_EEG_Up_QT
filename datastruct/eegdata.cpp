@@ -14,16 +14,29 @@ EEGData::EEGData(int Slaver_num , int Channel_num)
     /********************************************************************************************************/
     /****************************************传输包的通道数据**************************************************/
 
-    this-> PACKET_CHAN_HEAD_LEN = 4;     ///< 通道包头长度
-
+    this-> PACKET_CHAN_HEAD_LEN = 8;     ///< 通道包头长度
+    // EEG  采样率1K
     this-> PACKET_CHAN_SINGLE_EEG_LEN = 6;                               ///< 单个数据长度 3*2
-    this-> PACKET_CHAN_CHANNEL_EEG_LEN = (this->SLAVER_CONN*this->PACKET_CHAN_SINGLE_EEG_LEN);  ///<   每个通道数据包长度
-    this->  PACKET_CHAN_EEG_OFFSET =  4;    ///< 通道数据开始位置在通道包内的偏移量
+    this-> PACKET_CHAN_CHANNEL_EEG_LEN = ( this->SLAVER_CONN*this->PACKET_CHAN_SINGLE_EEG_LEN );  ///<   每个通道数据包长度
+    this->  PACKET_CHAN_EEG_OFFSET =  this-> PACKET_CHAN_HEAD_LEN;    ///< 通道数据开始位置在通道包内的偏移量
+    // IMU  采样率100
+    this-> PACKET_CHAN_SINGLE_IMU_LEN = 24;                               ///< 单个数据长度 12*2*2
+    this-> PACKET_CHAN_CHANNEL_IMU_LEN = ( this->SLAVER_CONN * this->PACKET_CHAN_SINGLE_IMU_LEN / 10 )+2;  ///<  分隔符 +   每个通道数据包长度
+    this->  PACKET_CHAN_IMU_OFFSET =  this-> PACKET_CHAN_HEAD_LEN + this-> PACKET_CHAN_CHANNEL_EEG_LEN ;    ///< 通道数据开始位置在通道包内的偏移量
+    // BAT
+    this-> PACKET_CHAN_SINGLE_BAT_LEN = 4;                               ///<  分隔符 +  单个数据长度 2*2
+    this-> PACKET_CHAN_CHANNEL_BAT_LEN = ( 1 * this->PACKET_CHAN_SINGLE_BAT_LEN )+2;  ///<  分隔符 +   每个通道数据包长度
+    this->  PACKET_CHAN_BAT_OFFSET =  this-> PACKET_CHAN_HEAD_LEN + this-> PACKET_CHAN_CHANNEL_EEG_LEN + this-> PACKET_CHAN_CHANNEL_IMU_LEN ;    ///< 通道数据开始位置在通道包内的偏移量
+
 
     #define PACKET_CHAN_TAIL_TXT "A3FE" ///< 通道包尾内容
     this-> PACKET_CHAN_TAIL_LEN = 4;      ///< 通道包尾长度
 
-    this-> PACKET_CHALL_ONE_LEN = (this->PACKET_CHAN_HEAD_LEN+this->PACKET_CHAN_CHANNEL_EEG_LEN+this->PACKET_CHAN_TAIL_LEN);
+    this-> PACKET_CHALL_ONE_LEN = (this->PACKET_CHAN_HEAD_LEN +
+                                   this->PACKET_CHAN_CHANNEL_EEG_LEN  +
+                                   this-> PACKET_CHAN_CHANNEL_IMU_LEN +
+                                   this-> PACKET_CHAN_CHANNEL_BAT_LEN +
+                                   this->PACKET_CHAN_TAIL_LEN);
     this-> PACKET_CHAN_LEN = ( this->PACKET_CHALL_ONE_LEN * this->CHANNEL_NUM );   ///< 传输数据包数据：(通道头+通道数据+通道尾)*通道数目
     /********************************************************************************************************/
     /********************************************传输包的数据尾************************************************/
@@ -43,7 +56,7 @@ EEGData::EEGData(int Slaver_num , int Channel_num)
     #define PACKET_TRAN_STOP "BB"
     this-> PACHET_TRAN_STOP_LEN = 2;
     //辅助判断的，包中一快不变的字符串 内容--位置--长度
-    #define PACKET_TRAN_SYMBOL_TXT "FEAA"
+    #define PACKET_TRAN_SYMBOL_TXT  "FEAA"
     this-> PACHET_TRAN_SYMBOL_LOC = this->PACKET_CHAN_LEN-2;
     this-> PACHET_TRAN_SYMBOL_LEN = 4;
     //通道ID的 偏移 长度

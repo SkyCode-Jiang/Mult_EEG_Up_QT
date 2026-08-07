@@ -24,6 +24,8 @@ public:
 
     void startImpCollect();  ///<阻抗采集命令
 
+    void PowerGet();
+
     QSerialPort *EEG_Port ;
 signals:
 private:

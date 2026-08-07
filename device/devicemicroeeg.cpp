@@ -84,3 +84,12 @@ void DeviceMicroEEG::startImpCollect()
     qDebug()<<sendBuf;
 }
 
+
+
+void DeviceMicroEEG::PowerGet()
+{
+    QByteArray sendBuf = QByteArray::fromHex("AA 2c");
+    this->EEG_Port->write(sendBuf);
+    qDebug()<<sendBuf;
+}
+

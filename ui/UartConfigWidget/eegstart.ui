@@ -259,7 +259,7 @@ font-size: 25px;
     <property name="geometry">
      <rect>
       <x>210</x>
-      <y>120</y>
+      <y>100</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -276,7 +276,7 @@ border-radius: 0px;</string>
     </item>
     <item>
      <property name="text">
-      <string>20</string>
+      <string>50</string>
      </property>
     </item>
     <item>
@@ -291,7 +291,7 @@ border-radius: 0px;</string>
     </item>
     <item>
      <property name="text">
-      <string>35</string>
+      <string>30</string>
      </property>
     </item>
     <item>
@@ -311,7 +311,7 @@ border-radius: 0px;</string>
     </item>
     <item>
      <property name="text">
-      <string>55</string>
+      <string>50</string>
      </property>
     </item>
     <item>
@@ -541,6 +541,16 @@ border-radius: 0px;</string>
       <string>115200</string>
      </property>
     </item>
+   </widget>
+   <widget class="QLineEdit" name="ConNum">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>140</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QListView" name="listView">

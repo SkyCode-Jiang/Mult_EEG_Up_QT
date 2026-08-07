@@ -8,7 +8,8 @@
 #define PACKET_TRAN_TAIL_TXT  "AA25000000BB" ///< 传输包尾内容
 #define PACKET_TRAN_START "FF"
 #define PACKET_TRAN_STOP "BB"
-#define PACKET_TRAN_SYMBOL_TXT "FEAA"
+#define PACKET_TRAN_SYMBOL_TXT "30AA"
+#define PACKET_TRAN_SYMBOL_TXT_T "01AA"
 
 class EEGData
 {
@@ -28,10 +29,18 @@ public:
     /****************************************传输包的通道数据**************************************************/
 //    #define PACKET_CHAN_HEAD_TXT "FF01" ///< 通道包头内容
     int PACKET_CHAN_HEAD_LEN ;     ///< 通道包头长度
-
-    int PACKET_CHAN_SINGLE_EEG_LEN ;                               ///< 单个数据长度 3*2
+    //  EEG
+    int PACKET_CHAN_SINGLE_EEG_LEN ;                               ///< EEG单个数据长度 3*2
     int PACKET_CHAN_CHANNEL_EEG_LEN ;  ///<   每个通道数据包长度
     int  PACKET_CHAN_EEG_OFFSET;    ///< 通道数据开始位置在通道包内的偏移量
+    //  IMU
+    int PACKET_CHAN_SINGLE_IMU_LEN ;                               ///< IMU单个数据长度 12*2
+    int PACKET_CHAN_CHANNEL_IMU_LEN ;  ///<   每个通道数据包长度
+    int  PACKET_CHAN_IMU_OFFSET;    ///< 通道数据开始位置在通道包内的偏移量
+    //  BAT
+    int PACKET_CHAN_SINGLE_BAT_LEN ;                               ///< BAT单个数据长度 2*2
+    int PACKET_CHAN_CHANNEL_BAT_LEN ;  ///<   每个通道数据包长度
+    int  PACKET_CHAN_BAT_OFFSET;    ///< 通道数据开始位置在通道包内的偏移量
 
 //    #define PACKET_CHAN_TAIL_TXT "A3FE" ///< 通道包尾内容
     int PACKET_CHAN_TAIL_LEN ;      ///< 通道包尾长度
