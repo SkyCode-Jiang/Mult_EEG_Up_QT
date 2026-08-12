@@ -87,7 +87,7 @@ public:
     QVector<QString> Online_SendData;
     QString Onlie_SendTCPData;
     QString Onlie_SendTCPData_Double;
-
+    int uartError = 0;
      int now_label_txt[2]={0,0}; //now_label_txt[0] 代表内容 now_label_txt[1] 代表位置
      int bdf_save_label[2]={0,0};
     void ALLdata_first_set();  //根据从机数目初始化使用到的数组

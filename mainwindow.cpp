@@ -442,6 +442,8 @@ void MainWindow::on_file_clicked()
 //(1.文件保存与否:
 void MainWindow::on_save_clicked()
 {
+    bdf_save_label[0] = 0;
+    bdf_save_label[1] = 0;
     if(save_flag == false)
     {
         if(File_save.isNull())
@@ -1170,8 +1172,7 @@ int MainWindow::LabAnary(QString str)
 
 /**********************************************
 * @projectName   EEGplylot
-* @brief         标签判断
-                 now_label_txt[0] 代表内容 now_label_txt[1] 代表位置
+* @brief         电量检测
 * @param         包含标签的字符串
 * @return        int
 * @author        JCLStill
@@ -1189,11 +1190,11 @@ void MainWindow::bat_calculate(QString mybat,int id)
         ui->pushButton_15,
         ui->pushButton_16,
     };
-qDebug()<<mybat;
+//    qDebug()<<mybat;
     QString s_bat =  mybat.mid(2,4);
-    qDebug()<<s_bat;
+//    qDebug()<<s_bat;
     int ix = s_bat.toInt(&OK,16);
-    float f_bat= ix/ 4096.0 * 4.3 * 3.12 ;
+    float f_bat= (ix - 256)/ 4096.0 * 4.3 * 3.12 ;
     QString batshow =  QString::number(f_bat, 'f', 2) + 'V';
     QPushButton *button = buttons.at(id);
     button->setText(batshow);
@@ -1214,16 +1215,16 @@ void MainWindow::chuli_muli_new_fir(QString rec, int L)
 //      qDebug()<< shujuliangint*chall + chall*8;
 //      qDebug()<< rec.mid((shujuliangint*chall*6 + chall*8),2);
     //判断数据包是否有所用从机数据
-//    if (   ( rec.mid(   baseEEGStruct->PACHET_TRAN_SYMBOL_LOC,baseEEGStruct->PACHET_TRAN_SYMBOL_LEN)!=PACKET_TRAN_SYMBOL_TXT   )            &&  ( rec.mid(   baseEEGStruct->PACHET_TRAN_SYMBOL_LOC,baseEEGStruct->PACHET_TRAN_SYMBOL_LEN)!=PACKET_TRAN_SYMBOL_TXT_T   )            )
-//    {
-//        qDebug()<<rec.mid(baseEEGStruct->PACHET_TRAN_SYMBOL_LOC,baseEEGStruct->PACHET_TRAN_SYMBOL_LEN);
-//        qDebug()<< baseEEGStruct->PACHET_TRAN_SYMBOL_LOC <<"  Not seccess";
-//        ui->error->setText(  rec.mid(baseEEGStruct->PACHET_TRAN_SYMBOL_LOC,baseEEGStruct->PACHET_TRAN_SYMBOL_LEN) );
-//        ui->serial->click();
-//        ui->serial->click();
-
-//        return;
-//    }
+    if (   ( rec.mid(   baseEEGStruct->PACHET_TRAN_SYMBOL_LOC,baseEEGStruct->PACHET_TRAN_SYMBOL_LEN)!=PACKET_TRAN_SYMBOL_TXT )  &&  ( rec.mid(   baseEEGStruct->PACHET_TRAN_SYMBOL_LOC,baseEEGStruct->PACHET_TRAN_SYMBOL_LEN)!=PACKET_TRAN_SYMBOL_TXT_T   )            )
+    {
+        qDebug()<<rec.mid(baseEEGStruct->PACHET_TRAN_SYMBOL_LOC,baseEEGStruct->PACHET_TRAN_SYMBOL_LEN);
+        qDebug()<< baseEEGStruct->PACHET_TRAN_SYMBOL_LOC <<"  Not seccess";
+        uartError+=1;
+        ui->error->setText(  QString::number(uartError) + ":" +rec.mid(baseEEGStruct->PACHET_TRAN_SYMBOL_LOC,baseEEGStruct->PACHET_TRAN_SYMBOL_LEN) );
+        ui->serial->click();
+        ui->serial->click();
+        return;
+    }
 
 //    else
     {

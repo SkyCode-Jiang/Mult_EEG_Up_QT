@@ -542,7 +542,7 @@ border-radius: 0px;</string>
      </property>
     </item>
    </widget>
-   <widget class="QLineEdit" name="ConNum">
+   <widget class="QLineEdit" name="ConNum_test">
     <property name="geometry">
      <rect>
       <x>210</x>

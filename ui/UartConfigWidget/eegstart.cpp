@@ -201,8 +201,8 @@ void EEGStart::on_pushButton_clicked()
     //波特率确定
     My_Plot_Show->rate=ui->comboBox_4->currentText();
     //数据量确定
-    My_Plot_Show->shujuliangint=ui->comboBox_2->currentText().toInt();
-//     My_Plot_Show->shujuliangint=ui->ConNum->text().toInt();
+//    My_Plot_Show->shujuliangint=ui->comboBox_2->currentText().toInt();
+     My_Plot_Show->shujuliangint=ui->ConNum_test->text().toInt();
     qDebug()<<"波特率为"<<My_Plot_Show->rate;
     qDebug()<<"数据量"<<My_Plot_Show->shujuliangint;
     My_Plot_Show->online =1;//在线实验标志
